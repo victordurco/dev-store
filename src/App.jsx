@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
 import HomePage from './pages/Home';
+import SignUp from './pages/SignUp';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" exact element={<HomePage />} />
+        <Route path="/sign-up" exact element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
