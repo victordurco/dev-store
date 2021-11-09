@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,19 +10,77 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { TextMaskCPF, TextMaskPhone } from '../shared/masks';
 
 const SignUp = () => {
-  const [cpf, setCpf] = useState('');
-  const [phone, setPhone] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const [values, setValues] = useState({
+    name: '',
+    phone: '',
+    cpf: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    showPassword: false,
+    showConfirmPassword: false,
+  });
 
-  const registerUser = (event) => {
-    event.preventDefault();
+  const [errors, setErrors] = useState({
+    name: '',
+    phone: '',
+    cpf: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setValues({
+      ...values,
+      showConfirmPassword: !values.showConfirmPassword,
+    });
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const sendSignUpForm = (event) => {
+    event.preventDefault();
+
+    if (values.password !== values.confirmPassword) {
+      setErrors({
+        ...errors,
+        password: 'Senhas não correspondentes',
+        confirmPassword: 'Senhas não correspondentes',
+      });
+      return;
+    }
+    setErrors({
+      ...errors,
+      password: '',
+      confirmPassword: '',
+    });
+
+    if (values.name < 3) {
+      setErrors({
+        ...errors,
+        name: 'Nome deve conter pelo menos 3 letras',
+      });
+      return;
+    }
+    setErrors({
+      ...errors,
+      name: '',
+    });
   };
 
   return (
@@ -32,9 +91,11 @@ const SignUp = () => {
         </Logo>
       </Header>
       <PageTitle>Criar seu cadastro</PageTitle>
-      <Form onSubmit={registerUser}>
+      <Form onSubmit={sendSignUpForm}>
         <TextField
           fullWidth
+          error={errors.name.length > 0}
+          helperText={errors.cpf}
           margin="normal"
           type="text"
           label="name"
@@ -45,12 +106,14 @@ const SignUp = () => {
           name="cpfmask"
           id="cpf-mask-input"
           fullWidth
+          error={errors.cpf.length > 0}
+          helperText={errors.cpf}
           margin="normal"
           type="text"
           label="CPF"
           variant="filled"
-          value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
+          value={values.cpf}
+          onChange={handleChange('cpf')}
           InputProps={{
             inputComponent: TextMaskCPF,
           }}
@@ -60,12 +123,14 @@ const SignUp = () => {
           name="phonemask"
           id="phone-mask-input"
           fullWidth
+          error={errors.phone.length > 0}
+          helperText={errors.phone}
           margin="normal"
           type="text"
           label="Celular"
           variant="filled"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          value={values.phone}
+          onChange={handleChange('phone')}
           InputProps={{
             inputComponent: TextMaskPhone,
           }}
@@ -75,28 +140,34 @@ const SignUp = () => {
           fullWidth
           margin="normal"
           type="email"
+          error={errors.email.length > 0}
+          helperText={errors.email}
           label="E-mail"
           variant="filled"
+          value={values.email}
+          onChange={handleChange('email')}
           required
         />
         <TextField
           fullWidth
           variant="filled"
           margin="normal"
-          type={showPassword ? 'text' : 'password'}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          error={errors.password.length > 0}
+          helperText={errors.password}
+          type={values.showPassword ? 'text' : 'password'}
+          value={values.password}
+          onChange={handleChange('password')}
           label="Senha"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() => setShowPassword((state) => (!state))}
+                  onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
                 {' '}
 
@@ -108,20 +179,22 @@ const SignUp = () => {
           fullWidth
           variant="filled"
           margin="normal"
-          type={showConfirmPassword ? 'text' : 'password'}
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          error={errors.confirmPassword.length > 0}
+          helperText={errors.confirmPassword}
+          type={values.showConfirmPassword ? 'text' : 'password'}
+          value={values.confirmPassword}
+          onChange={handleChange('confirmPassword')}
           label="Confirme a senha"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
-                  onClick={() => setShowConfirmPassword((state) => (!state))}
+                  onClick={handleClickShowConfirmPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
                 >
-                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
                 {' '}
 
@@ -129,7 +202,7 @@ const SignUp = () => {
             ),
           }}
         />
-        <AlreadyHaveAccount onClick={() => alert('manda pra login')}>
+        <AlreadyHaveAccount onClick={() => navigate('/entrar')}>
           Já possui conta em nossa loja?
           <ClickHere>Clique Aqui</ClickHere>
         </AlreadyHaveAccount>
