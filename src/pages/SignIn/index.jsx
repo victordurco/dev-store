@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PasswordInput from '../shared/PasswordInput';
 import { signIn } from '../../services/devStore.services';
-
 /* eslint react/prop-types: "off" */
 /* eslint react/jsx-props-no-spreading: "off" */
 /* eslint jsx-a11y/anchor-is-valid: "off" */
 
 const SignIn = () => {
+  function useQuery() {
+    const { search } = useLocation();
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+  const navigate = useNavigate();
+  const next = useQuery().get('next');
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -35,6 +41,11 @@ const SignIn = () => {
     signIn(formData)
       .then((response) => {
         console.log(response.data);
+        if (next) {
+          navigate(next);
+        } else {
+          navigate('/home');
+        }
         setIsLoading(false);
       }).catch((error) => {
         const { status } = error.response;
@@ -46,6 +57,11 @@ const SignIn = () => {
           setErrors({
             ...errors,
             password: 'Senha incorreta',
+          });
+        } else if (status === 400) {
+          setErrors({
+            ...errors,
+            general: 'Dados preenchidos incorretamente',
           });
         } else {
           setErrors({
@@ -95,6 +111,7 @@ const SignIn = () => {
             helperText={errors.password}
             InputLabelProps={{ required: false }}
             margin="normal"
+            inputProps={{ minLength: 6 }}
             value={formData.password}
             onChange={handleChange('password')}
             width="350px"
