@@ -35,12 +35,14 @@ const SignIn = () => {
           setErrors({
             email: 'E-mail não cadastrado',
           });
-        }
-
-        if (status === 401) {
+        } else if (status === 401) {
           setErrors({
             ...errors,
             password: 'Senha incorreta',
+          });
+        } else {
+          setErrors({
+            general: 'Falha ao entrar, tente novamente mais tarde',
           });
         }
       });
@@ -58,6 +60,12 @@ const SignIn = () => {
           component="form"
           autoComplete="on"
         >
+          {errors.general && (
+            <HelperText>
+              {errors.general}
+            </HelperText>
+          )}
+
           <TextField
             fullWidth
             error={Boolean(errors.email)}
@@ -131,6 +139,11 @@ const Logo = styled.span`
     font-family: 'Quantico', sans-serif;
     color: white;
     font-size: 45px;
+`;
+
+const HelperText = styled.span`
+  font-size: 16px;
+  color: #f44336;
 `;
 
 const Container = styled.div`
