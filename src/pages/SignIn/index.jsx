@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
@@ -6,6 +6,8 @@ import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PasswordInput from '../shared/PasswordInput';
 import { signIn } from '../../services/devStore.services';
+import UserContext from '../../contexts/UserContext';
+
 /* eslint react/prop-types: "off" */
 /* eslint react/jsx-props-no-spreading: "off" */
 /* eslint jsx-a11y/anchor-is-valid: "off" */
@@ -17,6 +19,7 @@ const SignIn = () => {
   }
   const navigate = useNavigate();
   const next = useQuery().get('next');
+  const { setUser } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -40,12 +43,18 @@ const SignIn = () => {
     setIsLoading(true);
     signIn(formData)
       .then((response) => {
-        console.log(response.data);
+        localStorage.setItem('user', JSON.stringify({
+          ...response.data,
+        }));
+
+        setUser(JSON.parse(localStorage.getItem('user')));
+
         if (next) {
           navigate(next);
         } else {
           navigate('/home');
         }
+
         setIsLoading(false);
       }).catch((error) => {
         const { status } = error.response;
