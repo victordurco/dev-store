@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PasswordInput from '../shared/PasswordInput';
 import { signIn } from '../../services/devStore.services';
 
 /* eslint react/prop-types: "off" */
 /* eslint react/jsx-props-no-spreading: "off" */
+/* eslint jsx-a11y/anchor-is-valid: "off" */
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -105,9 +107,11 @@ const SignIn = () => {
 
           <SignUpText>
             Não possui conta em nossa loja?
-            <Link to="/cadastro">
-              <b> Cadastre-se aqui</b>
-            </Link>
+            <RouterLink to="/cadastro">
+              <Link>
+                <b> Cadastre-se aqui</b>
+              </Link>
+            </RouterLink>
           </SignUpText>
 
           <SignInButton
