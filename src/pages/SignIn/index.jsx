@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
 import PasswordInput from '../shared/PasswordInput';
 import { signIn } from '../../services/devStore.services';
+
 /* eslint react/prop-types: "off" */
 /* eslint react/jsx-props-no-spreading: "off" */
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    email: 'glauco@gmail.com',
-    password: '12345678',
+    email: '',
+    password: '',
   });
 
   const [errors, setErrors] = useState({
@@ -20,15 +20,20 @@ const SignIn = () => {
     password: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (prop) => (event) => {
     setErrors({ ...errors, [prop]: '' });
     setFormData({ ...formData, [prop]: event.target.value });
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
     signIn(formData)
       .then((response) => {
         console.log(response.data);
+        setIsLoading(false);
       }).catch((error) => {
         const { status } = error.response;
         if (status === 404) {
@@ -45,6 +50,7 @@ const SignIn = () => {
             general: 'Falha ao entrar, tente novamente mais tarde',
           });
         }
+        setIsLoading(false);
       });
   };
 
@@ -57,8 +63,9 @@ const SignIn = () => {
       <Container>
         <h1> Login do Cliente </h1>
         <Form
-          component="form"
+          id="myform"
           autoComplete="on"
+          onSubmit={handleSignIn}
         >
           {errors.general && (
             <HelperText>
@@ -72,22 +79,26 @@ const SignIn = () => {
             helperText={errors.email}
             type="email"
             value={formData.email}
+            InputLabelProps={{ required: false }}
             onChange={handleChange('email')}
             label="E-mail"
             variant="filled"
             margin="normal"
+            required
           />
 
           <PasswordInput
             fullWidth
             error={Boolean(errors.password)}
             helperText={errors.password}
+            InputLabelProps={{ required: false }}
             margin="normal"
             value={formData.password}
             onChange={handleChange('password')}
             width="350px"
             label="Senha"
             variant="filled"
+            required
           />
 
           <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>
@@ -100,15 +111,16 @@ const SignIn = () => {
           </SignUpText>
 
           <SignInButton
-            onClick={handleSignIn}
+            loading={isLoading}
             variant="contained"
             color="secondary"
             margin="normal"
             size="large"
+            type="submit"
+            form="myform"
           >
             Entrar
           </SignInButton>
-
         </Form>
 
       </Container>
@@ -172,7 +184,7 @@ const Container = styled.div`
     }
 `;
 
-const Form = styled(Box)`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 450px;
@@ -195,7 +207,7 @@ const SignUpText = styled.span`
   margin-bottom: 20px;
 `;
 
-const SignInButton = styled(Button)`
+const SignInButton = styled(LoadingButton)`
   width: 350px;
   font-weight: bold !important;
 `;
