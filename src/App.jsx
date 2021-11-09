@@ -1,4 +1,6 @@
 import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 import {
   BrowserRouter,
   Routes,
@@ -9,13 +11,27 @@ import HomePage from './pages/Home';
 import SignUp from './pages/SignUp';
 
 export default function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#FA4098',
+      },
+      secondary: {
+        main: '#41E45B',
+        contrastText: '#fff',
+      },
+    },
+  });
+
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" exact element={<HomePage />} />
-        <Route path="/sign-up" exact element={<SignUp />} />
-      </Routes>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/" exact element={<HomePage />} />
+          <Route path="/cadastro" exact element={<SignUp />} />
+        </Routes>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
