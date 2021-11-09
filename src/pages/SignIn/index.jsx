@@ -31,11 +31,16 @@ const SignIn = () => {
         console.log(response.data);
       }).catch((error) => {
         const { status } = error.response;
-        console.log(status);
         if (status === 404) {
           setErrors({
-            ...errors,
             email: 'E-mail não cadastrado',
+          });
+        }
+
+        if (status === 401) {
+          setErrors({
+            ...errors,
+            password: 'Senha incorreta',
           });
         }
       });
@@ -55,7 +60,7 @@ const SignIn = () => {
         >
           <TextField
             fullWidth
-            error={errors.email}
+            error={Boolean(errors.email)}
             helperText={errors.email}
             type="email"
             value={formData.email}
@@ -67,8 +72,9 @@ const SignIn = () => {
 
           <PasswordInput
             fullWidth
+            error={Boolean(errors.password)}
+            helperText={errors.password}
             margin="normal"
-            type={formData.showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={handleChange('password')}
             width="350px"

@@ -5,11 +5,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
 /* eslint react/prop-types: "off" */
+/* eslint react/jsx-props-no-spreading: "off" */
 
 const PasswordInput = (props) => {
-  const {
-    value, onChange, fullWidth, margin, label, variant,
-  } = props;
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => {
@@ -22,13 +20,8 @@ const PasswordInput = (props) => {
 
   return (
     <TextField
-      fullWidth={fullWidth}
-      margin={margin}
+      {...props}
       type={showPassword ? 'text' : 'password'}
-      value={value}
-      onChange={onChange}
-      label={label}
-      variant={variant}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
