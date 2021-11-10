@@ -60,6 +60,7 @@ const GlobalStyle = createGlobalStyle`
     a, :link{
         text-decoration: none;
         color: inherit;
+        cursor: pointer;
     }
     b {
         font-weight: bold;

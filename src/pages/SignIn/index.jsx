@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -81,6 +81,10 @@ const SignIn = () => {
       });
   };
 
+  const to = (path) => {
+    navigate(path);
+  };
+
   return (
     <>
       <Header>
@@ -133,11 +137,9 @@ const SignIn = () => {
 
           <SignUpText>
             Não possui conta em nossa loja?
-            <RouterLink to="/cadastro">
-              <Link>
-                <b> Cadastre-se aqui</b>
-              </Link>
-            </RouterLink>
+            <Link onClick={() => to('/cadastro')}>
+              <b> Cadastre-se aqui</b>
+            </Link>
           </SignUpText>
 
           <SignInButton
