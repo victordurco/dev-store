@@ -23,6 +23,7 @@
             {
                 "js": "ignorePackages"
             }
-        ]
+        ],
+        "import/prefer-default-export":"off"
     }
 }
