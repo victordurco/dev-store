@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
@@ -12,9 +12,11 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { TextMaskCPF, TextMaskPhone, TextMaskCEP } from '../shared/masks';
+import { signUp } from '../../services/devStore.services.js';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState({
     name: '',
     phone: '',
@@ -84,6 +86,7 @@ const SignUp = () => {
   const sendSignUpForm = (event) => {
     event.preventDefault();
     resetInputErrors();
+    setIsLoading(true);
 
     if (values.name.length < 3) {
       setErrors({
@@ -102,6 +105,26 @@ const SignUp = () => {
       // eslint-disable-next-line no-useless-return
       return;
     }
+
+    signUp(values)
+      .then()
+      .catch((error) => {
+        const { status } = error.response;
+        if (status === 400) {
+          setErrors({
+            name: '',
+            phone: '',
+            cpf: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            address: '',
+            cep: '',
+            complement: '',
+            photo: '',
+          });
+        }
+      });
   };
 
   return (
@@ -330,11 +353,13 @@ const SignUp = () => {
           <ClickHere>Clique Aqui</ClickHere>
         </AlreadyHaveAccount>
         <SignUpButton
-          type="submit"
+          loading={isLoading}
           variant="contained"
           color="secondary"
           margin="normal"
           size="large"
+          type="submit"
+          form="myform"
         >
           Cadastrar
         </SignUpButton>
@@ -389,7 +414,7 @@ const Form = styled.form`
   }
 `;
 
-const SignUpButton = styled(Button)`
+const SignUpButton = styled(LoadingButton)`
   width: 350px;
   font-weight: bold !important;
 `;
