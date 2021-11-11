@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IoMenu } from 'react-icons/io5';
-import { FaRegUserCircle, FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import SearchBox from './SearchBox';
+import UserButton from './UserButton';
 
 const Header = () => (
   <HeaderMobile>
@@ -13,17 +14,13 @@ const Header = () => (
           <Logo> dev_store </Logo>
         </Group1>
         <Group2>
-          <UserIcon />
-
+          <UserButton />
           <CartIcon />
         </Group2>
-
       </Row>
 
       <ContainerSearchBox>
-
         <SearchBox />
-
       </ContainerSearchBox>
 
     </Content>
@@ -71,7 +68,7 @@ const Group2 = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-width: 80px;
+      min-width: 90px;
       margin: 0 10px;
 `;
 
@@ -85,16 +82,6 @@ const MenuIcon = styled(IoMenu)`
   }
 `;
 
-const UserIcon = styled(FaRegUserCircle)`
-      color: #fff;
-      font-size: 40px;
-      cursor: pointer;
-
-      @media (max-width: 1000px) {
-        font-size: 30px;
-  }
-`;
-
 const CartIcon = styled(FaShoppingCart)`
       color: #fff;
       font-size: 30px;
@@ -102,14 +89,6 @@ const CartIcon = styled(FaShoppingCart)`
 `;
 
 const HeaderMobile = styled.header`
-      background-color: #FA4098;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      height: 109px;
-      width: 100vw;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -117,7 +96,7 @@ const HeaderMobile = styled.header`
 
       @media (max-width: 600px) {
         display: flex;
-  }
+      }
 `;
 
 const Logo = styled.span`

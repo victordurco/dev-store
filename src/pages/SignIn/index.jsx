@@ -9,8 +9,6 @@ import PasswordInput from '../shared/PasswordInput';
 import { signIn } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
-/* eslint jsx-a11y/anchor-is-valid: "off" */
-
 const SignIn = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -142,12 +140,14 @@ const SignIn = () => {
 
           <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>
 
-          <SignUpText>
-            Não possui conta em nossa loja?
-            <Button onClick={() => to(`/cadastro${search}`)}>
-              <b> Cadastre-se aqui</b>
-            </Button>
-          </SignUpText>
+          <SignUpContainer>
+            <SignUpText>
+              Não possui conta em nossa loja?
+            </SignUpText>
+            <SignUpButton onClick={() => to(`/cadastro${search}`)}>
+              <SignUpButtonText> Cadastre-se aqui </SignUpButtonText>
+            </SignUpButton>
+          </SignUpContainer>
 
           <SignInButton
             loading={isLoading}
@@ -158,7 +158,7 @@ const SignIn = () => {
             type="submit"
             form="myform"
           >
-            Entrar
+            <strong> Entrar </strong>
           </SignInButton>
         </Form>
       </Container>
@@ -184,11 +184,14 @@ const Title = styled.h1`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  max-width: 450px;
+  width: 450px;
   margin-top: 38px;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+
+  @media (max-width: 450px) {
+    width: 90vw;
+  }
 `;
 
 const ForgotPasswordText = styled.span`
@@ -200,14 +203,30 @@ const ForgotPasswordText = styled.span`
 const SignUpText = styled.span`
   width: 100%;
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 `;
 
 const SignInButton = styled(LoadingButton)`
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
+`;
+
+const SignUpButton = styled(Button)`
+  width: fit-content;
+`;
+
+const SignUpButtonText = styled.span`
+  text-decoration: underline;
+  font-weight: bold;
+`;
+
+const SignUpContainer = styled.div`
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default SignIn;

@@ -8,11 +8,11 @@ import {
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GlobalStyle from './styles/GlobalStyle';
 import HomePage from './pages/Home';
-import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
 import SignUp from './pages/SignUp';
 import UserContext from './contexts/UserContext';
 import Header from './pages/shared/Header';
+import SignIn from './pages/SignIn';
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
