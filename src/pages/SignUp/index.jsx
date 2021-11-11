@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -11,11 +11,17 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import Swal from 'sweetalert2';
 import { TextMaskCPF, TextMaskPhone, TextMaskCEP } from '../shared/masks';
 import { signUp } from '../../services/devStore.services.js';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const useQuery = () => {
+    const { search } = useLocation();
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  };
+  const next = useQuery().get('next');
   const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState({
     name: '',
@@ -28,7 +34,7 @@ const SignUp = () => {
     cep: '',
     complement: '',
     photo: '',
-    state: null,
+    state: 0,
     showPassword: false,
     showConfirmPassword: false,
   });
@@ -87,6 +93,18 @@ const SignUp = () => {
     event.preventDefault();
     resetInputErrors();
     setIsLoading(true);
+    const formData = {
+      name: values.name,
+      phone: values.phone,
+      cpf: values.cpf,
+      email: values.email,
+      password: values.password,
+      address: values.address,
+      cep: values.cep,
+      complement: values.complement,
+      photo: values.photo,
+      state: values.state,
+    };
 
     if (values.name.length < 3) {
       setErrors({
@@ -102,28 +120,44 @@ const SignUp = () => {
         password: 'Senhas não correspondentes',
         confirmPassword: 'Senhas não correspondentes',
       });
-      // eslint-disable-next-line no-useless-return
       return;
     }
 
-    signUp(values)
-      .then()
+    signUp(formData)
+      .then(() => {
+        setIsLoading(false);
+        if (next) {
+          navigate(next);
+        } else {
+          navigate('/home');
+        }
+      })
       .catch((error) => {
+        setIsLoading(false);
         const { status } = error.response;
         if (status === 400) {
-          setErrors({
-            name: '',
-            phone: '',
-            cpf: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            address: '',
-            cep: '',
-            complement: '',
-            photo: '',
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Preencha os dados corretamente',
           });
+          return;
         }
+
+        if (status === 409) {
+          setErrors({
+            ...errors,
+            email: 'E-mail ou CPF ja cadastrados',
+            cpf: 'E-mail ou CPF ja cadastrado',
+          });
+          return;
+        }
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo deu errado com o cadastro',
+        });
       });
   };
 
@@ -236,6 +270,7 @@ const SignUp = () => {
             onChange={handleChange('state')}
             label="Estado"
           >
+            <MenuItem value={0}>Estados</MenuItem>
             <MenuItem value={1}>Acre</MenuItem>
             <MenuItem value={2}>Alagoas</MenuItem>
             <MenuItem value={3}>Amazonas</MenuItem>
@@ -359,7 +394,6 @@ const SignUp = () => {
           margin="normal"
           size="large"
           type="submit"
-          form="myform"
         >
           Cadastrar
         </SignUpButton>
