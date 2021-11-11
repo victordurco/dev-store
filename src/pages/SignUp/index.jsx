@@ -131,7 +131,7 @@ const SignUp = () => {
         if (next) {
           navigate(next);
         } else {
-          navigate('/');
+          navigate('/entrar');
         }
       })
       .catch((error) => {
