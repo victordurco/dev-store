@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Container from '../shared/Container';
 import PasswordInput from '../shared/PasswordInput';
 import signIn from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
@@ -94,12 +95,8 @@ const SignIn = () => {
 
   return (
     <>
-      <Header>
-        <Logo> dev_store </Logo>
-      </Header>
-
       <Container>
-        <h1> Login do Cliente </h1>
+        <Title> Login do Cliente </Title>
         <Form
           id="myform"
           autoComplete="on"
@@ -166,60 +163,24 @@ const SignIn = () => {
   );
 };
 
-const Header = styled.header`
-  background-color: #FA4098;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 109px;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  padding-left: 182px;
-
-  @media (max-width: 800px) {
-    justify-content: center;
-    padding-left: 0;
-  }
-`;
-
-const Logo = styled.span`
-  font-family: 'Quantico', sans-serif;
-  color: white;
-  font-size: 45px;
-`;
-
 const HelperText = styled.span`
   font-size: 16px;
   color: #f44336;
 `;
 
-const Container = styled.div`
-  width: 100vw;
-  height: calc(100vh - 147px);
-  margin-top: 147px;
-  color: #686868;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  & {
-    h1 {
-      font-family: 'Quantico', sans-serif;
-      font-weight: bold;
-      font-size: 40px;
-    }
+const Title = styled.h1`
+  h1 {
+    font-family: 'Quantico', sans-serif;
+    font-weight: bold;
+    font-size: 40px;
   }
 
   @media (max-width: 600px) {
-    & {
-          h1 {
-        font-size: 30px;
-      }
+    h1 {
+      font-size: 30px;
     }
   }
+  
 `;
 
 const Form = styled.form`
