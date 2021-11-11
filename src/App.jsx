@@ -4,10 +4,12 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GlobalStyle from './styles/GlobalStyle';
 import HomePage from './pages/Home';
 import SignIn from './pages/SignIn';
+import NotFound from './pages/NotFound';
 import UserContext from './contexts/UserContext';
 
 export default function App() {
@@ -33,6 +35,7 @@ export default function App() {
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             <Route path="/entrar" exact element={<SignIn />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
