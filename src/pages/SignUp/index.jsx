@@ -131,7 +131,7 @@ const SignUp = () => {
         if (next) {
           navigate(next);
         } else {
-          navigate('/home');
+          navigate('/');
         }
       })
       .catch((error) => {
@@ -407,6 +407,7 @@ const SignUp = () => {
 export default SignUp;
 
 const Container = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -420,6 +421,9 @@ const Header = styled.div`
   align-items: center;
   box-shadow: 0px 4px 4px 0px #00000040;
 
+  @media (max-width: 800px){
+    justify-content: center;
+  }
 `;
 
 const Logo = styled.span`
@@ -427,6 +431,12 @@ const Logo = styled.span`
     margin: auto 0 auto 182px;
     color: white;
     font-family: 'Quantico', sans-serif;
+
+     @media (max-width: 800px){
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+  }
 `;
 
 const PageTitle = styled.span`
@@ -435,6 +445,11 @@ const PageTitle = styled.span`
     font-weight: 700;
     color: #686868;
     margin-top:35px;
+
+    @media (max-width: 800px){
+        text-align: center;
+        
+  }
 `;
 
 const Form = styled.form`
