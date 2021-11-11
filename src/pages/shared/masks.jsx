@@ -16,18 +16,27 @@ const TextMaskPhone = React.forwardRef((props, ref) => {
   );
 });
 
-TextMaskPhone.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
-
 const TextMaskCPF = React.forwardRef((props, ref) => {
   const { onChange, ...other } = props;
   return (
     <IMaskInput
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...other}
-      mask="000.000.000-04"
+      mask="000.000.000-00"
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+const TextMaskCEP = React.forwardRef((props, ref) => {
+  const { onChange, ...other } = props;
+  return (
+    <IMaskInput
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...other}
+      mask="00000-000"
       inputRef={ref}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
       overwrite
@@ -40,7 +49,18 @@ TextMaskCPF.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+TextMaskPhone.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+TextMaskCEP.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 export {
   TextMaskCPF,
   TextMaskPhone,
+  TextMaskCEP,
 };
