@@ -10,6 +10,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import HomePage from './pages/Home';
 import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
+import SignUp from './pages/SignUp';
 import UserContext from './contexts/UserContext';
 import Header from './pages/shared/Header';
 
@@ -37,6 +38,7 @@ export default function App() {
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             <Route path="/entrar" exact element={<SignIn />} />
+            <Route path="/cadastro" exact element={<SignUp />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>

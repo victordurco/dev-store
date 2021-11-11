@@ -9,6 +9,8 @@ import PasswordInput from '../shared/PasswordInput';
 import signIn from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
+/* eslint jsx-a11y/anchor-is-valid: "off" */
+
 const SignIn = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
