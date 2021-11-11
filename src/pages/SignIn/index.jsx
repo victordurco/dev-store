@@ -169,18 +169,13 @@ const HelperText = styled.span`
 `;
 
 const Title = styled.h1`
-  h1 {
-    font-family: 'Quantico', sans-serif;
-    font-weight: bold;
-    font-size: 40px;
-  }
+  font-family: 'Quantico', sans-serif;
+  font-weight: bold;
+  font-size: 40px;
 
   @media (max-width: 600px) {
-    h1 {
-      font-size: 30px;
-    }
+    font-size: 30px;
   }
-  
 `;
 
 const Form = styled.form`
