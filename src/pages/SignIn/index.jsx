@@ -11,8 +11,9 @@ import UserContext from '../../contexts/UserContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { search } = useLocation();
+
   function useQuery() {
-    const { search } = useLocation();
     return React.useMemo(() => new URLSearchParams(search), [search]);
   }
   const next = useQuery().get('next');
@@ -141,7 +142,7 @@ const SignIn = () => {
 
           <SignUpText>
             Não possui conta em nossa loja?
-            <Button onClick={() => to('/cadastro')}>
+            <Button onClick={() => to(`/cadastro${search}`)}>
               <b> Cadastre-se aqui</b>
             </Button>
           </SignUpText>
