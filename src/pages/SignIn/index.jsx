@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '../shared/Container';
 import PasswordInput from '../shared/PasswordInput';
-import signIn from '../../services/devStore.services';
+import { signIn } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
 /* eslint jsx-a11y/anchor-is-valid: "off" */

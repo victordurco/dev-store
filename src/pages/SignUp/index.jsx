@@ -13,7 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Swal from 'sweetalert2';
 import { TextMaskCPF, TextMaskPhone, TextMaskCEP } from '../shared/masks';
-import { signUp } from '../../services/devStore.services.js';
+import { signUp } from '../../services/devStore.services';
 
 const SignUp = () => {
   const navigate = useNavigate();
