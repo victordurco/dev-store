@@ -111,6 +111,7 @@ const SignUp = () => {
         ...errors,
         name: 'Nome deve conter pelo menos 3 letras',
       });
+      setIsLoading(false);
       return;
     }
 
@@ -120,6 +121,7 @@ const SignUp = () => {
         password: 'Senhas não correspondentes',
         confirmPassword: 'Senhas não correspondentes',
       });
+      setIsLoading(false);
       return;
     }
 
@@ -385,7 +387,7 @@ const SignUp = () => {
         />
         <AlreadyHaveAccount onClick={() => navigate('/entrar')}>
           Já possui conta em nossa loja?
-          <ClickHere>Clique Aqui</ClickHere>
+          <ClickHere> Clique Aqui</ClickHere>
         </AlreadyHaveAccount>
         <SignUpButton
           loading={isLoading}
@@ -450,7 +452,7 @@ const Form = styled.form`
 
 const SignUpButton = styled(LoadingButton)`
   width: 350px;
-  font-weight: bold !important;
+  font-weight: 700;
 `;
 
 const AlreadyHaveAccount = styled.button`
@@ -464,4 +466,6 @@ const AlreadyHaveAccount = styled.button`
 
 const ClickHere = styled.span`
   font-weight: 700;
+  color: #fa4098;
+  text-decoration: underline;
 `;
