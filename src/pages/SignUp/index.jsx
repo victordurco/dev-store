@@ -397,7 +397,7 @@ const SignUp = () => {
           size="large"
           type="submit"
         >
-          Cadastrar
+          <strong>Cadastrar</strong>
         </SignUpButton>
       </Form>
     </Container>
