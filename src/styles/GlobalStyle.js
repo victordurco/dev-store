@@ -57,6 +57,7 @@ const GlobalStyle = createGlobalStyle`
     button{
         border: none;
     }
+    strong { font-weight: bold}
     a, :link{
         text-decoration: none;
         color: inherit;

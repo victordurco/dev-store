@@ -8,6 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GlobalStyle from './styles/GlobalStyle';
 import HomePage from './pages/Home';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import UserContext from './contexts/UserContext';
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             <Route path="/entrar" exact element={<SignIn />} />
+            <Route path="/cadastro" exact element={<SignUp />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
