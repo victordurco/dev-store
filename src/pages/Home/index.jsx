@@ -94,18 +94,36 @@ const HomePage = () => {
         <Logo> dev_store </Logo>
       </Header>
       <MenusContainer>
-        <Menu
-          LeftArrow={<LeftArrow />}
-          RightArrow={<RightArrow />}
-        >
-          {products.map((product) => (
-            <ProductCard
-              itemId={product.id}
-              key={product.id}
-              itemName={product.name}
-            />
-          ))}
-        </Menu>
+        <Title>{'< Destaques />'}</Title>
+        <MenuContainer>
+          <ScrollMenu
+            LeftArrow={<LeftArrow />}
+            RightArrow={<RightArrow />}
+          >
+            {products.map((product) => (
+              <ProductCard
+                itemId={product.id}
+                key={product.id}
+                itemName={product.name}
+              />
+            ))}
+          </ScrollMenu>
+        </MenuContainer>
+        <Title>{'< Promoções />'}</Title>
+        <MenuContainer>
+          <ScrollMenu
+            LeftArrow={<LeftArrow />}
+            RightArrow={<RightArrow />}
+          >
+            {products.map((product) => (
+              <ProductCard
+                itemId={product.id}
+                key={product.id}
+                itemName={product.name}
+              />
+            ))}
+          </ScrollMenu>
+        </MenuContainer>
       </MenusContainer>
       <Footer />
     </HomeContainer>
@@ -126,6 +144,13 @@ const Logo = styled.span`
     font-size: 45px;
 `;
 
+const Title = styled.span`
+  font-family: 'Quantico', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color:#686868;
+`;
+
 const Arrow = styled.div`
   background-color:blue;
   width: 50px;
@@ -133,16 +158,16 @@ const Arrow = styled.div`
 `;
 
 const MenusContainer = styled.div`
-  margin-top:200px;
+  margin-top:120px;
   width: 100%;
-  padding: 20px 30px;
+  padding: 10px 100px;
   scrollbar-width: none;
    div::-webkit-scrollbar {
     display: none;
 }
 `;
 
-const Menu = styled(ScrollMenu)`
+const MenuContainer = styled.div`
   width: 100%;
- 
+  margin: 15px 0;
 `;
