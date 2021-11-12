@@ -67,15 +67,18 @@ const FooterContainer = styled.div`
   left: 0;
   display: flex;
   justify-content: space-around;
+
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 7px;
 `;
 
 const AboutUs = styled.button`
   font-size: 25px;
+  line-height: 25px;
   font-family: 'Quantico', sans-serif;
   color:white;
   background-color:inherit;
