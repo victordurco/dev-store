@@ -13,14 +13,14 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Swal from 'sweetalert2';
 import { TextMaskCPF, TextMaskPhone, TextMaskCEP } from '../shared/masks';
-import { signUp } from '../../services/devStore.services.js';
+import { signUp } from '../../services/devStore.services';
+import Container from '../shared/Container';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const useQuery = () => {
-    const { search } = useLocation();
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  };
+  const { search } = useLocation();
+  const useQuery = () => React.useMemo(() => new URLSearchParams(search), [search]);
+
   const next = useQuery().get('next');
   const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState({
@@ -53,6 +53,7 @@ const SignUp = () => {
   });
 
   const handleChange = (prop) => (event) => {
+    setErrors({ ...errors, [prop]: '' });
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -106,10 +107,29 @@ const SignUp = () => {
       state: values.state,
     };
 
-    if (values.name.length < 3) {
+    if (!values.state) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Selecione um estado',
+        text: 'Você precisa selecionar o estado que você mora',
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (values.password.length < 6) {
       setErrors({
         ...errors,
-        name: 'Nome deve conter pelo menos 3 letras',
+        password: 'A senha deve conter pelo menos 6 caracteres',
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (values.confirmPassword.length < 6) {
+      setErrors({
+        ...errors,
+        confirmPassword: 'A senha deve conter pelo menos 6 caracteres',
       });
       setIsLoading(false);
       return;
@@ -131,7 +151,7 @@ const SignUp = () => {
         if (next) {
           navigate(next);
         } else {
-          navigate('/entrar');
+          navigate(`/entrar${search}`);
         }
       })
       .catch((error) => {
@@ -165,17 +185,13 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Header>
-        <Logo>
-          dev_store
-        </Logo>
-      </Header>
       <PageTitle>Criar seu cadastro</PageTitle>
       <Form onSubmit={sendSignUpForm}>
         <TextField
           fullWidth
           error={errors.name.length > 0}
           helperText={errors.name}
+          inputProps={{ minLength: 3 }}
           margin="normal"
           type="text"
           label="Nome"
@@ -271,6 +287,7 @@ const SignUp = () => {
             value={values.state}
             onChange={handleChange('state')}
             label="Estado"
+            required
           >
             <MenuItem value={0}>Estados</MenuItem>
             <MenuItem value={1}>Acre</MenuItem>
@@ -353,6 +370,7 @@ const SignUp = () => {
 
               </InputAdornment>
             ),
+            minLength: 6,
           }}
           autoComplete="on"
         />
@@ -378,16 +396,14 @@ const SignUp = () => {
                 >
                   {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
-                {' '}
-
               </InputAdornment>
             ),
           }}
           autoComplete="on"
         />
-        <AlreadyHaveAccount onClick={() => navigate('/entrar')}>
-          Já possui conta em nossa loja?
-          <ClickHere> Clique Aqui</ClickHere>
+        <AlreadyHaveAccount onClick={() => navigate(`/entrar${search}`)}>
+          Já possui conta em nossa loja? &nbsp;
+          <ClickHere>Clique Aqui</ClickHere>
         </AlreadyHaveAccount>
         <SignUpButton
           loading={isLoading}
@@ -406,62 +422,27 @@ const SignUp = () => {
 
 export default SignUp;
 
-const Container = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
-const Header = styled.div`
-  width: 100%;
-  height: 109px;
-  background-color: #fa4098;
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 4px 4px 0px #00000040;
-
-  @media (max-width: 800px){
-    justify-content: center;
-  }
-`;
-
-const Logo = styled.span`
-    font-size: 45px;
-    margin: auto 0 auto 182px;
-    color: white;
-    font-family: 'Quantico', sans-serif;
-
-     @media (max-width: 800px){
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-  }
-`;
-
 const PageTitle = styled.span`
-    font-size: 45px;
-    font-family: 'Quantico', sans-serif;
-    font-weight: 700;
-    color: #686868;
-    margin-top:35px;
+  font-size: 45px;
+  font-family: 'Quantico', sans-serif;
+  font-weight: 700;
+  color: #686868;
 
-    @media (max-width: 800px){
-        text-align: center;
-        
+  @media(max-width: 800px) {
+    text-align: center;
+    font-size: 30px;
   }
 `;
 
 const Form = styled.form`
-  width:450;
+  width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top:15px;
-  margin-bottom: 50px;
+  padding-top: 15px;
 
-  TextField{
-    margin-bottom: 15px;
+  @media (max-width: 450px) {
+    width: 90vw;
   }
 `;
 
@@ -480,7 +461,6 @@ const AlreadyHaveAccount = styled.button`
 `;
 
 const ClickHere = styled.span`
-  font-weight: 700;
   color: #fa4098;
   text-decoration: underline;
 `;

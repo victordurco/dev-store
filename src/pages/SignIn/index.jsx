@@ -1,23 +1,34 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Container from '../shared/Container';
 import PasswordInput from '../shared/PasswordInput';
 import { signIn } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
-/* eslint jsx-a11y/anchor-is-valid: "off" */
-
 const SignIn = () => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+
   function useQuery() {
-    const { search } = useLocation();
     return React.useMemo(() => new URLSearchParams(search), [search]);
   }
-  const navigate = useNavigate();
   const next = useQuery().get('next');
-  const { setUser } = useContext(UserContext);
+
+  const { setUser, user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      if (next) {
+        navigate(next);
+      } else {
+        navigate('/');
+      }
+    }
+  }, []);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -50,7 +61,7 @@ const SignIn = () => {
         if (next) {
           navigate(next);
         } else {
-          navigate('/home');
+          navigate('/');
         }
 
         setIsLoading(false);
@@ -85,12 +96,8 @@ const SignIn = () => {
 
   return (
     <>
-      <Header>
-        <Logo> dev_store </Logo>
-      </Header>
-
       <Container>
-        <h1> Login do Cliente </h1>
+        <Title> Login do Cliente </Title>
         <Form
           id="myform"
           autoComplete="on"
@@ -133,12 +140,14 @@ const SignIn = () => {
 
           <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>
 
-          <SignUpText>
-            Não possui conta em nossa loja?
-            <Link onClick={() => to('/cadastro')}>
-              <b> Cadastre-se aqui</b>
-            </Link>
-          </SignUpText>
+          <SignUpContainer>
+            <SignUpText>
+              Não possui conta em nossa loja?
+            </SignUpText>
+            <SignUpButton onClick={() => to(`/cadastro${search}`)}>
+              <SignUpButtonText> Cadastre-se aqui </SignUpButtonText>
+            </SignUpButton>
+          </SignUpContainer>
 
           <SignInButton
             loading={isLoading}
@@ -149,79 +158,40 @@ const SignIn = () => {
             type="submit"
             form="myform"
           >
-            Entrar
+            <strong> Entrar </strong>
           </SignInButton>
         </Form>
-
       </Container>
     </>
   );
 };
-
-const Header = styled.header`
-    background-color: #FA4098;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    height: 109px;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    padding-left: 182px;
-
-    @media (max-width: 800px) {
-       justify-content: center;
-       padding-left: 0;
-    }
-`;
-
-const Logo = styled.span`
-    font-family: 'Quantico', sans-serif;
-    color: white;
-    font-size: 45px;
-`;
 
 const HelperText = styled.span`
   font-size: 16px;
   color: #f44336;
 `;
 
-const Container = styled.div`
-    width: 100vw;
-    height: calc(100vh - 147px);
-    margin-top: 147px;
-    color: #686868;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+const Title = styled.h1`
+  font-family: 'Quantico', sans-serif;
+  font-weight: bold;
+  font-size: 40px;
 
-    & {
-      h1 {
-        font-family: 'Quantico', sans-serif;
-        font-weight: bold;
-        font-size: 40px;
-      }
-    }
-
-    @media (max-width: 600px) {
-    & {
-      h1 {
-        font-size: 30px;
-      }
-    }
-    }
+  @media (max-width: 600px) {
+    font-size: 30px;
+  }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  max-width: 450px;
+  width: 450px;
   margin-top: 38px;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+
+  @media (max-width: 450px) {
+    width: 90vw;
+  }
 `;
 
 const ForgotPasswordText = styled.span`
@@ -233,13 +203,30 @@ const ForgotPasswordText = styled.span`
 const SignUpText = styled.span`
   width: 100%;
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SignInButton = styled(LoadingButton)`
-  width: 350px;
-  font-weight: bold !important;
+  width: 100%;
+  max-width: 350px;
+`;
+
+const SignUpButton = styled(Button)`
+  width: fit-content;
+`;
+
+const SignUpButtonText = styled.span`
+  text-decoration: underline;
+  font-weight: bold;
+`;
+
+const SignUpContainer = styled.div`
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default SignIn;

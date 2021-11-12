@@ -63,8 +63,5 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
         cursor: pointer;
     }
-    b {
-        font-weight: bold;
-    }
 `;
 export default GlobalStyle;
