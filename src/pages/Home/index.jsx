@@ -1,105 +1,112 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+import Header from '../shared/Header';
 import Footer from '../shared/Footer';
-
-// eslint-disable-next-line arrow-body-style
-const getItems = () => Array(20)
-  .fill(0)
-  .map((_, ind) => ({ id: `element-${ind}` }));
+import ProductCard from '../shared/ProductCard';
 
 const HomePage = () => {
-  const [items] = useState(getItems);
-  const [selected, setSelected] = useState([]);
+  const products = [{
+    name: 'Produto',
+    description: '28cm',
+    id: 1,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 2,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 3,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 4,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 5,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 6,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 7,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 8,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 9,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 10,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 11,
+  },
+  {
+    name: 'Produto',
+    description: '28cm',
+    id: 12,
+  },
 
-  const isItemSelected = (id) => !!selected.find((el) => el === id);
+  ];
 
-  const handleClick = (id) => () => {
-    const itemSelected = isItemSelected(id);
-
-    setSelected((currentSelected) => (itemSelected
-      ? currentSelected.filter((el) => el !== id)
-      : currentSelected.concat(id)));
-  };
-  const LeftArrow = () => {
-    const { isFirstItemVisible, scrollPrev } = React.useContext(VisibilityContext);
-
+  function LeftArrow() {
+    const { scrollPrev } = React.useContext(VisibilityContext);
     return (
-      <div disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
+      <Arrow onClick={() => scrollPrev()}>
         Left
-      </div>
+      </Arrow>
     );
-  };
-  const RightArrow = () => {
-    const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
+  }
 
+  function RightArrow() {
+    const { scrollNext } = React.useContext(VisibilityContext);
     return (
-      <div disabled={isLastItemVisible} onClick={() => scrollNext()}>
+      <Arrow onClick={() => scrollNext()}>
         Right
-      </div>
+      </Arrow>
     );
-  };
-  const Card = ({
-    onClick,
-    itemSelected,
-    title,
-    itemId,
-  }) => {
-    const visibility = React.useContext(VisibilityContext);
-
-    return (
-      <div
-        onClick={() => onClick(visibility)}
-        style={{
-          width: '160px',
-        }}
-        tabIndex={0}
-      >
-        <div className="card">
-          <div>{title}</div>
-          <div>
-            visible:
-            {' '}
-            {JSON.stringify(!!visibility.isItemVisible(itemId))}
-          </div>
-          <div>
-            selected:
-            {' '}
-            {JSON.stringify(!!itemSelected)}
-          </div>
-        </div>
-        <div
-          style={{
-            height: '200px',
-          }}
-        />
-      </div>
-    );
-  };
+  }
 
   return (
     <HomeContainer>
       <Header>
         <Logo> dev_store </Logo>
       </Header>
-      <ScrollMenu
-        LeftArrow={LeftArrow}
-        RightArrow={RightArrow}
-      >
-        {items.map(({ id }) => (
-          <Card
-            itemId={id} // NOTE: itemId is required for track items
-            title={id}
-            key={id}
-            onClick={handleClick(id)}
-            itemSelected={isItemSelected(id)}
-          />
-        ))}
-      </ScrollMenu>
+      <MenusContainer>
+        <Menu
+          LeftArrow={<LeftArrow />}
+          RightArrow={<RightArrow />}
+        >
+          {products.map((product) => (
+            <ProductCard
+              itemId={product.id}
+              key={product.id}
+              itemName={product.name}
+            />
+          ))}
+        </Menu>
+      </MenusContainer>
       <Footer />
     </HomeContainer>
   );
@@ -107,23 +114,10 @@ const HomePage = () => {
 
 export default HomePage;
 
-const Header = styled.header`
-    background-color: #FA4098;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    height: 109px;
-    width: 100vw;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    padding-left: 182px;
-
-    @media (max-width: 800px) {
-       justify-content: center;
-       padding-left: 0;
-    }
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 `;
 
 const Logo = styled.span`
@@ -132,12 +126,23 @@ const Logo = styled.span`
     font-size: 45px;
 `;
 
-const HomeContainer = styled.div`
+const Arrow = styled.div`
+  background-color:blue;
+  width: 50px;
+  height: 50px;
+`;
+
+const MenusContainer = styled.div`
+  margin-top:200px;
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  top: 0;
-  left: 0;
+  padding: 20px 30px;
+  scrollbar-width: none;
+   div::-webkit-scrollbar {
+    display: none;
+}
+`;
+
+const Menu = styled(ScrollMenu)`
+  width: 100%;
+ 
 `;
