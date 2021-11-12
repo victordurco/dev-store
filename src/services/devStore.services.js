@@ -6,4 +6,6 @@ const signIn = (body) => axios.post(`${URL_API}/sign-in`, body);
 
 const signUp = (body) => axios.post(`${URL_API}/sign-up`, body);
 
-export { signIn, signUp };
+const getProductByCode = (code) => axios.get(`${URL_API}/products/${code}`);
+
+export { signIn, signUp, getProductByCode };
