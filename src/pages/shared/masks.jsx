@@ -23,6 +23,7 @@ const TextMaskCPF = React.forwardRef((props, ref) => {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...other}
       mask="000.000.000-00"
+      minLength="14"
       inputRef={ref}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
       overwrite
@@ -37,6 +38,7 @@ const TextMaskCEP = React.forwardRef((props, ref) => {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...other}
       mask="00000-000"
+      minLength="9"
       inputRef={ref}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
       overwrite

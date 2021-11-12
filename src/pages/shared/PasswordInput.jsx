@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
-/* eslint react/prop-types: "off" */
-/* eslint react/jsx-props-no-spreading: "off" */
+import PropTypes from 'prop-types';
 
-const PasswordInput = (props) => {
-  const [showPassword, setShowPassword] = React.useState(false);
+const PasswordInput = ({
+  fullWidth, error, helperText, InputLabelProps, margin, value, onChange, label, variant, required,
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword((state) => !state);
@@ -20,7 +21,16 @@ const PasswordInput = (props) => {
 
   return (
     <TextField
-      {...props}
+      fullWidth={fullWidth}
+      error={error}
+      helperText={helperText}
+      margin={margin}
+      value={value}
+      onChange={onChange}
+      label={label}
+      variant={variant}
+      required={required}
+      InputLabelProps={InputLabelProps}
       type={showPassword ? 'text' : 'password'}
       InputProps={{
         endAdornment: (
@@ -38,6 +48,30 @@ const PasswordInput = (props) => {
       }}
     />
   );
+};
+
+PasswordInput.propTypes = {
+  fullWidth: PropTypes.bool,
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
+  InputLabelProps: PropTypes.objectOf(PropTypes.any),
+  margin: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  variant: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+};
+
+PasswordInput.defaultProps = {
+  fullWidth: false,
+  error: false,
+  helperText: '',
+  InputLabelProps: {},
+  margin: '',
+  value: '',
+  label: '',
+  required: false,
 };
 
 export default PasswordInput;
