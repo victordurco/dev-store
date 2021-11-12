@@ -29,7 +29,7 @@ const Products = () => {
   };
 
   return (
-    <Container>
+    <Container noMobileSpacing>
       <ProductContainer>
         <Row>
           <ContainerImage>
@@ -38,6 +38,7 @@ const Products = () => {
           <ContainerInfo>
             <Group marginTop="15px">
               <ProductName>{product.name}</ProductName>
+              <MobileImage src={product.image} />
               <PriceTag>
                 R$
                 {product.price}
@@ -83,7 +84,7 @@ const Products = () => {
             </Group>
           </ContainerInfo>
         </Row>
-        <Row>
+        <Row marginTop="0">
           <Info>
             <h1> Descrição: </h1>
             <span>
@@ -107,107 +108,157 @@ const Products = () => {
 };
 
 const ProductContainer = styled.div`
-      width: 85vw;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding-bottom: 20px;
-      background: #FFFFFF;
-      box-shadow: 0px 4px 4px 2px rgba(212, 52, 118, 0.4);
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      color: #000000;
+  width: 85vw;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px 2px rgba(212, 52, 118, 0.4);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #000000;
 
-      & {
-        h1 {
-          font-weight: bold;
-          font-size: 20px;
-          margin-top: 10px;
-        }
-  }
-      `;
-
-const Group = styled.div`
-      display: flex;
-      flex-direction: column;
-      margin-top: ${({ marginTop }) => (marginTop || '0px')};
-      width: 100%;
-      `;
-
-const Info = styled.div`
-      display: flex;
-      flex-direction: column;
-      padding: 0 20px;
-
-      & {
-        span {
-        font-size: 16px;
-        line-height: 21px;
-      }
-  }
-      `;
-
-const Row = styled.div`
-      display: flex;
-      flex-direction: row;
-      margin-top: ${({ marginTop }) => (marginTop || '0px')};
-      width: 100%;
-      `;
-
-const ContainerImage = styled.div`
-      width: 55%;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      `;
-
-const ProductImage = styled.img`
-      width: 80%;
-      `;
-
-const ContainerInfo = styled.div`
-      width: 45%;
-      height: 50%;
-      display: flex;
-      padding: 0 14px;
-      align-items: center;
-      flex-direction: column;
-      height: 400px;
-      `;
-
-const ProductName = styled.span`
-      height: fit-content;
+  & {
+    h1 {
       font-weight: bold;
-      font-size: 30px;
-      line-height: 35px;
-      color: black;
-      width: 90%;
-      `;
-
-const PriceTag = styled.span`
-      font-weight: bold;
-      margin-top: 5px;
-      font-size: 35px;
-      line-height: 41px;
-      color: #000000;
-      `;
-
-const Address = styled.span`
-      color: #FA4098;
-      text-decoration: underline;
-      margin-top: 5px;
-
-      & {
-        svg {
-        font-size: 15px;
-      margin-right: 5px;
+      font-size: 20px;
+      margin-top: 10px;
     }
   }
-      `;
+
+  @media (max-width: 1000px) {
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+     padding-bottom: 0;
+     height: fit-content;
+     border-radius: 0;
+  }
+`;
+
+const Group = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: ${({ marginTop }) => (marginTop || '0px')};
+  width: 100%;
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+
+  & {
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    span {
+      font-size: 16px;
+      line-height: 21px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    padding: 5px;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: ${({ marginTop }) => (marginTop || '0px')};
+  width: 100%;
+`;
+
+const ContainerImage = styled.div`
+  width: 55%;
+  display: flex;
+  height: 430px;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
+
+const ProductImage = styled.img`
+  width: 80%;
+`;
+
+const MobileImage = styled.img`
+  max-width: 100%;
+  display: none;
+  max-height: 400px;
+  object-fit: contain;
+  @media (max-width: 700px) {
+    display: block;
+  }
+`;
+
+const ContainerInfo = styled.div`
+  width: 45%;
+  display: flex;
+  padding: 0 14px;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
+  @media (max-width: 700px) {
+    width: 100%;
+    height: fit-content;
+    padding: 5px;
+  }
+`;
+
+const ProductName = styled.span`
+  height: fit-content;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 35px;
+  color: black;
+  @media (max-width: 1000px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 20px;
+  }
+`;
+
+const PriceTag = styled.span`
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 35px;
+  line-height: 41px;
+  color: #000000;
+
+  @media (max-width: 1000px) {
+    font-size: 28px;
+  }
+
+  @media (max-width: 700px) {
+    font-size: 24px;
+  }
+`;
+
+const Address = styled.span`
+color: #FA4098;
+text-decoration: underline;
+margin-top: 5px;
+
+      & {
+  svg {
+  font-size: 15px;
+  margin-right: 5px;
+}
+  }
+`;
 
 const Stock = styled.span`
-      margin-top: 10px;
-      `;
+margin-top: 10px;
+`;
 
 export default Products;

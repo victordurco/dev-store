@@ -11,6 +11,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 25px;
+
+  @media (max-width: 700px) {
+    ${({ noMobileSpacing }) => noMobileSpacing
+    && `margin-top: 107px;
+        margin-bottom: 0;`}
+  }
 `;
 
 export default Container;
