@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GlobalStyle from './styles/GlobalStyle';
 import HomePage from './pages/Home';
@@ -13,6 +12,7 @@ import SignUp from './pages/SignUp';
 import UserContext from './contexts/UserContext';
 import Header from './pages/shared/Header';
 import SignIn from './pages/SignIn';
+import Products from './pages/Products';
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -39,6 +39,7 @@ export default function App() {
             <Route path="/" exact element={<HomePage />} />
             <Route path="/entrar" exact element={<SignIn />} />
             <Route path="/cadastro" exact element={<SignUp />} />
+            <Route path="/produtos/:productName" exact element={<Products />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
