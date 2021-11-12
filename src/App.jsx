@@ -39,7 +39,7 @@ export default function App() {
             <Route path="/" exact element={<HomePage />} />
             <Route path="/entrar" exact element={<SignIn />} />
             <Route path="/cadastro" exact element={<SignUp />} />
-            <Route path="/produtos/:productName" exact element={<Products />} />
+            <Route path="/produtos/:productCode" exact element={<Products />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>

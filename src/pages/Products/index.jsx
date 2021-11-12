@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import { FiMapPin } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '@mui/material/Button';
+import { useParams } from 'react-router-dom';
 import Container from '../shared/Container';
 import { getProductByCode } from '../../services/devStore.services';
 /* eslint-disable react/no-array-index-key */
 
 const Products = () => {
   const [product, setProduct] = useState({});
+  const { productCode } = useParams();
 
   useEffect(() => {
-    getProductByCode('8417973128')
+    getProductByCode(productCode)
       .then((res) => {
         console.log(res.data);
         setProduct({ ...res.data });
