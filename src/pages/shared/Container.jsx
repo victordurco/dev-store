@@ -12,7 +12,7 @@ const Container = styled.div`
   align-items: center;
   margin-bottom: 25px;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1000px) {
     ${({ noMobileSpacing }) => noMobileSpacing
     && `margin-top: 107px;
         margin-bottom: 0;`}
