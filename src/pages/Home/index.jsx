@@ -5,88 +5,26 @@ import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import Header from '../shared/Header';
 import Footer from '../shared/Footer';
 import ProductCard from '../shared/ProductCard';
+import products from './products';
 
 const HomePage = () => {
-  const products = [{
-    name: 'Produto',
-    description: '28cm',
-    id: 1,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 2,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 3,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 4,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 5,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 6,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 7,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 8,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 9,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 10,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 11,
-  },
-  {
-    name: 'Produto',
-    description: '28cm',
-    id: 12,
-  },
-
-  ];
-
-  function LeftArrow() {
+  const LeftArrow = () => {
     const { scrollPrev } = React.useContext(VisibilityContext);
     return (
       <Arrow onClick={() => scrollPrev()}>
-        Left
+        {'<'}
       </Arrow>
     );
-  }
+  };
 
-  function RightArrow() {
+  const RightArrow = () => {
     const { scrollNext } = React.useContext(VisibilityContext);
     return (
       <Arrow onClick={() => scrollNext()}>
-        Right
+        {'>'}
       </Arrow>
     );
-  }
+  };
 
   return (
     <HomeContainer>
@@ -104,7 +42,9 @@ const HomePage = () => {
               <ProductCard
                 itemId={product.id}
                 key={product.id}
-                itemName={product.name}
+                title={product.name}
+                image={product.image}
+                price={product.price}
               />
             ))}
           </ScrollMenu>
@@ -119,7 +59,9 @@ const HomePage = () => {
               <ProductCard
                 itemId={product.id}
                 key={product.id}
-                itemName={product.name}
+                title={product.name}
+                image={product.image}
+                price={product.price}
               />
             ))}
           </ScrollMenu>
@@ -152,9 +94,20 @@ const Title = styled.span`
 `;
 
 const Arrow = styled.div`
-  background-color:blue;
+  background-color:#fff;
   width: 50px;
   height: 50px;
+  margin: auto 10px;
+  border-radius:100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color:#FA4098;
+
+  :hover{
+    background-color:#c2c2c2;
+  }
 `;
 
 const MenusContainer = styled.div`
