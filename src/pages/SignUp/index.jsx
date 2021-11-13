@@ -149,7 +149,7 @@ const SignUp = () => {
       .then(() => {
         setIsLoading(false);
         if (next) {
-          navigate(next);
+          navigate(`/entrar?next=${next}`);
         } else {
           navigate('/entrar');
         }
