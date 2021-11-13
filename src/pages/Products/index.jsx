@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { FiMapPin } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -6,12 +6,15 @@ import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
 import Container from '../shared/Container';
 import { getProductByCode } from '../../services/devStore.services';
+import UserContext from '../../contexts/UserContext';
+
 /* eslint-disable react/no-array-index-key */
 
 const Products = () => {
   const [product, setProduct] = useState({});
   const { productCode } = useParams();
-
+  const { user } = useContext(UserContext);
+  console.log(user);
   useEffect(() => {
     getProductByCode(productCode)
       .then((res) => {
@@ -22,10 +25,6 @@ const Products = () => {
         console.log(error.response);
       });
   }, []);
-
-  const user = {
-    endereco: 'Rua Maranguape, Cabuçu, Nova Iguaçu',
-  };
 
   return (
     <Container noMobileSpacing>
@@ -53,22 +52,26 @@ const Products = () => {
                   </span>
                 </Group>
 
-                <Group marginTop="23px">
-                  <span>Frete grátis em:</span>
-                  <Address>
-                    <FiMapPin />
-                    {user.endereco}
-                  </Address>
-                  <Stock>
-                    Estoque:
-                    {' '}
-                    {product.quantity}
-                    {' '}
-                    unidades
-                  </Stock>
-                </Group>
+                {user && (
+                  <Group marginTop="23px">
+                    <span>Frete grátis em:</span>
+                    <Address>
+                      <FiMapPin />
+                      {user.address.address}
+                      {', '}
+                      {user.address.state}
+                    </Address>
+                    <Stock>
+                      Estoque:
+                      {' '}
+                      {product.quantity}
+                      {' '}
+                      unidades
+                    </Stock>
+                  </Group>
+                )}
 
-                <Group marginTop="20px">
+                <Group marginTop={user ? '23px' : '120px'}>
                   <Button
                     variant="contained"
                     color="secondary"
@@ -163,6 +166,10 @@ const Group = styled.div`
   flex-direction: column;
   margin-top: ${({ marginTop }) => (marginTop || '0px')};
   width: 100%;
+  @media (max-width: 700px) {
+  margin-top: ${({ marginTop }) => (marginTop ? '23px' : '0px')};
+
+  }
 `;
 
 const Info = styled.div`

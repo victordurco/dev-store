@@ -10,8 +10,8 @@ const UserButton = () => {
   const { pathname } = useLocation();
   const [imageError, setImageError] = useState(false);
   const next = (pathname !== '/') ? `?next=${pathname}` : '';
-
   let name;
+
   if (user) {
     if (user.name.length > 20) {
       name = `${name.substring(0, 20)}...`;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -13,9 +13,23 @@ import UserContext from './contexts/UserContext';
 import Header from './pages/shared/Header';
 import SignIn from './pages/SignIn';
 import Products from './pages/Products';
+import { getUser } from './services/devStore.services';
 
 export default function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token) {
+      getUser(token)
+        .then((response) => {
+          setUser({ ...response.data });
+        })
+        .catch(() => {
+          // localStorage.removeItem('token');
+        });
+    }
+  }, []);
 
   const theme = createTheme({
     palette: {
