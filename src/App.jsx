@@ -26,7 +26,7 @@ export default function App() {
           setUser({ ...response.data });
         })
         .catch(() => {
-          // localStorage.removeItem('token');
+          localStorage.removeItem('token');
         });
     }
   }, []);

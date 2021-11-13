@@ -14,7 +14,7 @@ const UserButton = () => {
 
   if (user) {
     if (user.name.length > 20) {
-      name = `${name.substring(0, 20)}...`;
+      name = `${user.name.substring(0, 20)}...`;
     } else {
       name = user.name;
     }
