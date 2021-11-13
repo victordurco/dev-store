@@ -19,7 +19,6 @@ const SignIn = () => {
   const next = useQuery().get('next');
 
   const { setUser, user } = useContext(UserContext);
-
   useEffect(() => {
     if (user) {
       if (next) {
@@ -52,11 +51,9 @@ const SignIn = () => {
     setIsLoading(true);
     signIn(formData)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify({
-          ...response.data,
-        }));
+        localStorage.setItem('token', JSON.stringify(response.data.token));
 
-        setUser(JSON.parse(localStorage.getItem('user')));
+        setUser({ ...response.data });
 
         if (next) {
           navigate(next);
