@@ -14,15 +14,12 @@ const Products = () => {
   const [product, setProduct] = useState({});
   const { productCode } = useParams();
   const { user } = useContext(UserContext);
-  console.log(user);
   useEffect(() => {
     getProductByCode(productCode)
       .then((res) => {
-        console.log(res.data);
         setProduct({ ...res.data });
       })
-      .catch((error) => {
-        console.log(error.response);
+      .catch(() => {
       });
   }, []);
 
