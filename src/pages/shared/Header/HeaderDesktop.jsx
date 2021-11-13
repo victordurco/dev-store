@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import styled from 'styled-components';
 import { IoMenu } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -6,9 +7,7 @@ import SearchBox from './SearchBox';
 import UserButton from './UserButton';
 import CategoriesMenu from './CategoriesMenu';
 
-const HeaderDesktop = () => {
-  const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
-
+const HeaderDesktop = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
   const showMenu = () => {
     setShowCategoriesMenu(!showCategoriesMenu);
   };

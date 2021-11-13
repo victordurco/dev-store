@@ -1,31 +1,43 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { IoMenu } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
 import SearchBox from './SearchBox';
 import UserButton from './UserButton';
+import CategoriesMenu from './CategoriesMenu';
 
-const Header = () => (
-  <HeaderMobile>
-    <Content>
-      <Row>
-        <Group1>
-          <MenuIcon />
-          <Logo> dev_store </Logo>
-        </Group1>
-        <Group2>
-          <UserButton />
-          <CartIcon />
-        </Group2>
-      </Row>
+const Header = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
+  const showMenu = () => {
+    setShowCategoriesMenu(!showCategoriesMenu);
+  };
 
-      <ContainerSearchBox>
-        <SearchBox />
-      </ContainerSearchBox>
+  return (
+    <HeaderMobile>
+      <Content>
+        <Row>
+          <Group1>
+            <MenuCategories onClick={showMenu}><MenuIcon /></MenuCategories>
+            <CategoriesMenu
+              mustBeShown={showCategoriesMenu}
+              setMustBeShown={setShowCategoriesMenu}
+            />
+            <Logo> dev_store </Logo>
+          </Group1>
+          <Group2>
+            <UserButton />
+            <CartIcon />
+          </Group2>
+        </Row>
 
-    </Content>
-  </HeaderMobile>
-);
+        <ContainerSearchBox>
+          <SearchBox />
+        </ContainerSearchBox>
+
+      </Content>
+    </HeaderMobile>
+  );
+};
 
 const Row = styled.div`
   display: flex;
@@ -105,6 +117,13 @@ const Logo = styled.span`
       font-size: 32px;
       cursor: pointer;
       margin-left: 10px;
+`;
+
+const MenuCategories = styled.button`
+background-color: inherit;
+    :hover{
+    background-color: #D43476;;
+  }
 `;
 
 export default Header;

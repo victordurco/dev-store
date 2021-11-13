@@ -20,6 +20,10 @@ const DropDrownMenu = styled.div`
     border-radius: 10px;
     border-top-left-radius: 0px;
     transition: 400ms;
+
+    @media (max-width:600px){
+      width: 100vw;
+    }
 `;
 
 const BackgroundCover = styled.div`
