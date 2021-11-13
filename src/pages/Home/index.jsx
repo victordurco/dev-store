@@ -94,7 +94,8 @@ const Title = styled.span`
 `;
 
 const Arrow = styled.div`
-  background-color:#fff;
+  background-color:#FA4098;
+  color: #fff;
   width: 50px;
   height: 50px;
   margin: auto 10px;
@@ -103,10 +104,11 @@ const Arrow = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 50px;
-  color:#FA4098;
+  cursor: pointer;
 
   :hover{
-    background-color:#c2c2c2;
+     background-color:#41E45B;
+      color:#fff;
   }
 `;
 
