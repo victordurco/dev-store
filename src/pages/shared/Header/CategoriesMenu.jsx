@@ -1,10 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { getCategories } from '../../../services/devStore.services';
 
 const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
+
+  const handleClickOnCategorie = (id) => {
+    setMustBeShown(false);
+    navigate(`/categoria/${id}`, { replace: true });
+  };
 
   useEffect(() => {
     getCategories()
@@ -21,6 +28,7 @@ const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
           <Categorie
             key={categorie.id}
             show={mustBeShown}
+            onClick={() => handleClickOnCategorie(categorie.id)}
           >
             {categorie.name}
           </Categorie>

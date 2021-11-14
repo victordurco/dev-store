@@ -23,7 +23,7 @@ const Categorie = () => {
         title: 'Oops...',
         text: 'Algo deu errado, por favor recarregue a pagina',
       }));
-  }, []);
+  }, [categorieId]);
 
   return (
     <Container>
@@ -64,4 +64,6 @@ const ProductsContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
