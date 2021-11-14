@@ -34,7 +34,7 @@ const DropDrownMenu = styled.div`
     z-index: 2;
     border-radius: 10px;
     border-top-left-radius: 0px;
-    transition: 400ms;
+    transition: 450ms ease-out;
     display: flex;
     flex-direction: column;
     align-items: center;

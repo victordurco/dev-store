@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+import Swal from 'sweetalert2';
 import Header from '../shared/Header';
 import Footer from '../shared/Footer';
 import ProductCard from '../shared/ProductCard';
@@ -36,22 +37,29 @@ const HomePage = () => {
         setHighlights(res.data);
         setLoading((value) => value + 1);
       })
-      .catch(() => alert('cai aqui 1'));
+      .catch(() => Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo deu errado, por favor recarregue a pagina',
+      }));
     getProductsOnSale()
       .then((res) => {
         setOnSale(res.data);
         setLoading((value) => value + 1);
       })
-      .catch(() => alert('cai aqui 1'));
+      .catch(() => Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo deu errado, por favor recarregue a pagina',
+      }));
   }, []);
 
-  console.log(loading);
   return (
     <HomeContainer>
       <Header>
         <Logo> dev_store </Logo>
       </Header>
-      { loading >= 2
+      {loading >= 2
         ? (
           <MenusContainer>
             <Title>{'< Destaques />'}</Title>
@@ -67,6 +75,7 @@ const HomePage = () => {
                     title={product.name}
                     image={product.photo}
                     price={product.price}
+                    code={product.code}
                   />
                 ))}
               </ScrollMenu>
@@ -84,6 +93,7 @@ const HomePage = () => {
                     title={product.name}
                     image={product.photo}
                     price={product.price}
+                    code={product.code}
                   />
                 ))}
               </ScrollMenu>

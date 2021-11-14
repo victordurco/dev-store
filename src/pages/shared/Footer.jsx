@@ -11,12 +11,12 @@ import masterCard from '../../assets/mastercard-full.png';
 
 const Footer = () => (
   <FooterContainer>
-    <Column>
+    <ColumnAboutUs>
       <AboutUs>Sobre nós</AboutUs>
       <AboutLink>FAQ</AboutLink>
       <AboutLink>Trocas e devoluções</AboutLink>
       <AboutLink>Entregas</AboutLink>
-    </Column>
+    </ColumnAboutUs>
     <Column>
       <ColumnTitle>Fale conosco</ColumnTitle>
       <ButtonsRow>
@@ -67,10 +67,20 @@ const FooterContainer = styled.div`
 
 `;
 
+const ColumnAboutUs = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 7px;
+`;
+
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 7px;
+
+  @media (max-width:600){
+    display: none;
+  }
 `;
 
 const AboutUs = styled.button`
@@ -122,4 +132,9 @@ const PaymentButton = styled.button`
   border-radius:10px;
   cursor: pointer;
   margin-right:5px;
+
+  @media (max-width:800){
+    width: 48px;
+    height: 30px;
+  }
 `;

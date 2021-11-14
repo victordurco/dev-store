@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({
   image,
   title,
   price,
+  code,
 }) => {
+  const navigate = useNavigate();
   const handleClick = () => {
-    alert('Clicou num item');
+    navigate(`/produtos/${code}`);
   };
 
   return (

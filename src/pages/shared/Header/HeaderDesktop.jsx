@@ -3,11 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { IoMenu } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import SearchBox from './SearchBox';
 import UserButton from './UserButton';
 import CategoriesMenu from './CategoriesMenu';
 
 const HeaderDesktop = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
+  const navigate = useNavigate();
   const showMenu = () => {
     setShowCategoriesMenu(!showCategoriesMenu);
   };
@@ -19,7 +21,7 @@ const HeaderDesktop = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
         <Group1>
           <MenuCategories onClick={showMenu}><MenuIcon /></MenuCategories>
           <CategoriesMenu mustBeShown={showCategoriesMenu} setMustBeShown={setShowCategoriesMenu} />
-          <Logo> dev_store </Logo>
+          <Logo onClick={() => navigate('/')}> dev_store </Logo>
         </Group1>
 
         <ContainerSearchBox>
