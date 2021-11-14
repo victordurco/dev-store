@@ -8,8 +8,6 @@ import Container from '../shared/Container';
 import { getProductByCode } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
-/* eslint-disable react/no-array-index-key */
-
 const Products = () => {
   const [product, setProduct] = useState({});
   const { productCode } = useParams();
@@ -37,8 +35,7 @@ const Products = () => {
                   <ProductName>{product.name}</ProductName>
                   <MobileImage src={product.photo} />
                   <PriceTag>
-                    R$
-                    {product.price}
+                    {`R$ ${product.price}`}
                   </PriceTag>
                   <span>
                     Em 12x R$
@@ -103,8 +100,8 @@ const Products = () => {
                 )}
 
                 {product.aspects.length > 0 && (
-                  product.aspects.map((aspect, i) => (
-                    <span key={i}>
+                  product.aspects.map((aspect) => (
+                    <span key={aspect.id}>
                       {aspect.name}
                       :
                       {' '}
@@ -135,7 +132,7 @@ const ProductContainer = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  color: #000000;
+  color: #686868;
 
   & {
     h1 {
@@ -200,9 +197,9 @@ const Row = styled.div`
 const ContainerImage = styled.div`
   width: 55%;
   display: flex;
-  height: 430px;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   @media (max-width: 700px) {
     display: none;
   }
