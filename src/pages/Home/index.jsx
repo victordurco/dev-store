@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import Header from '../shared/Header';
 import Footer from '../shared/Footer';
 import ProductCard from '../shared/ProductCard';
-import products from './products';
+import { getProductsHighlights, getProductsOnSale } from '../../services/devStore.services';
 
 const HomePage = () => {
+  const [highlights, setHighlights] = useState([]);
+  const [onSale, setOnSale] = useState([]);
+  const [loading, setLoading] = useState(0);
+
   const LeftArrow = () => {
     const { scrollPrev } = React.useContext(VisibilityContext);
     return (
@@ -26,47 +30,67 @@ const HomePage = () => {
     );
   };
 
+  useEffect(() => {
+    getProductsHighlights()
+      .then((res) => {
+        setHighlights(res.data);
+        setLoading((value) => value + 1);
+      })
+      .catch(() => alert('cai aqui 1'));
+    getProductsOnSale()
+      .then((res) => {
+        setOnSale(res.data);
+        setLoading((value) => value + 1);
+      })
+      .catch(() => alert('cai aqui 1'));
+  }, []);
+
+  console.log(loading);
   return (
     <HomeContainer>
       <Header>
         <Logo> dev_store </Logo>
       </Header>
-      <MenusContainer>
-        <Title>{'< Destaques />'}</Title>
-        <MenuContainer>
-          <ScrollMenu
-            LeftArrow={<LeftArrow />}
-            RightArrow={<RightArrow />}
-          >
-            {products.map((product) => (
-              <ProductCard
-                itemId={product.id}
-                key={product.id}
-                title={product.name}
-                image={product.image}
-                price={product.price}
-              />
-            ))}
-          </ScrollMenu>
-        </MenuContainer>
-        <Title>{'< Promoções />'}</Title>
-        <MenuContainer>
-          <ScrollMenu
-            LeftArrow={<LeftArrow />}
-            RightArrow={<RightArrow />}
-          >
-            {products.map((product) => (
-              <ProductCard
-                itemId={product.id}
-                key={product.id}
-                title={product.name}
-                image={product.image}
-                price={product.price}
-              />
-            ))}
-          </ScrollMenu>
-        </MenuContainer>
-      </MenusContainer>
+      { loading >= 2
+        ? (
+          <MenusContainer>
+            <Title>{'< Destaques />'}</Title>
+            <MenuContainer>
+              <ScrollMenu
+                LeftArrow={<LeftArrow />}
+                RightArrow={<RightArrow />}
+              >
+                {highlights.map((product) => (
+                  <ProductCard
+                    itemId={product.id}
+                    key={product.id}
+                    title={product.name}
+                    image={product.photo}
+                    price={product.price}
+                  />
+                ))}
+              </ScrollMenu>
+            </MenuContainer>
+            <Title>{'< Promoções />'}</Title>
+            <MenuContainer>
+              <ScrollMenu
+                LeftArrow={<LeftArrow />}
+                RightArrow={<RightArrow />}
+              >
+                {onSale.map((product) => (
+                  <ProductCard
+                    itemId={product.id}
+                    key={product.id}
+                    title={product.name}
+                    image={product.photo}
+                    price={product.price}
+                  />
+                ))}
+              </ScrollMenu>
+            </MenuContainer>
+          </MenusContainer>
+        )
+        : <div>CARREGANDO ...</div>}
       <Footer />
     </HomeContainer>
   );

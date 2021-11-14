@@ -16,6 +16,18 @@ const getProductByCode = (code) => axios.get(`${URL_API}/products/${code}`);
 
 const getUser = (token) => axios.get(`${URL_API}/user`, getConfig(token));
 
+const getProductsHighlights = () => axios.get(`${URL_API}/highlights`);
+
+const getProductsOnSale = () => axios.get(`${URL_API}/on-sale`);
+
+const getCategories = () => axios.get(`${URL_API}/categories`);
+
 export {
-  signIn, signUp, getProductByCode, getUser,
+  signIn,
+  signUp,
+  getProductByCode,
+  getUser,
+  getProductsHighlights,
+  getProductsOnSale,
+  getCategories,
 };
