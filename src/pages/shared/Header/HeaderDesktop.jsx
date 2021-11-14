@@ -1,31 +1,42 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { IoMenu } from 'react-icons/io5';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import SearchBox from './SearchBox';
 import UserButton from './UserButton';
+import CategoriesMenu from './CategoriesMenu';
 
-const HeaderDesktop = () => (
-  <Container>
-    <Content>
+const HeaderDesktop = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
+  const navigate = useNavigate();
+  const showMenu = () => {
+    setShowCategoriesMenu(!showCategoriesMenu);
+  };
 
-      <Group1>
-        <MenuIcon />
-        <Logo> dev_store </Logo>
-      </Group1>
+  return (
+    <Container>
+      <Content>
 
-      <ContainerSearchBox>
-        <SearchBox />
-      </ContainerSearchBox>
+        <Group1>
+          <MenuCategories onClick={showMenu}><MenuIcon /></MenuCategories>
+          <CategoriesMenu mustBeShown={showCategoriesMenu} setMustBeShown={setShowCategoriesMenu} />
+          <Logo onClick={() => navigate('/')}> dev_store </Logo>
+        </Group1>
 
-      <Group2>
-        <CartIcon />
-        <UserButton />
-      </Group2>
+        <ContainerSearchBox>
+          <SearchBox />
+        </ContainerSearchBox>
 
-    </Content>
-  </Container>
-);
+        <Group2>
+          <CartIcon />
+          <UserButton />
+        </Group2>
+
+      </Content>
+    </Container>
+  );
+};
 
 const Container = styled.header`
   display: flex;
@@ -106,6 +117,7 @@ const CartIcon = styled(FaShoppingCart)`
   @media (max-width: 1000px) {
     font-size: 30px;
   }
+
 `;
 
 const Logo = styled.span`
@@ -117,6 +129,13 @@ const Logo = styled.span`
   @media (max-width: 1000px) {
     font-size: 24px;
 }
+`;
+
+const MenuCategories = styled.button`
+  background-color: inherit;
+      :hover{
+      background-color: #D43476;;
+    }
 `;
 
 export default HeaderDesktop;
