@@ -22,6 +22,8 @@ const getProductsOnSale = () => axios.get(`${URL_API}/on-sale`);
 
 const getCategories = () => axios.get(`${URL_API}/categories`);
 
+const getCategorieProducts = (id) => axios.get(`${URL_API}/categorie/${id}`);
+
 export {
   signIn,
   signUp,
@@ -30,4 +32,5 @@ export {
   getProductsHighlights,
   getProductsOnSale,
   getCategories,
+  getCategorieProducts,
 };

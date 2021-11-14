@@ -40,6 +40,9 @@ const Card = styled.div`
   color: #686868;
   justify-content: space-around;
   cursor: pointer;
+   div::-webkit-scrollbar {
+    display: none;
+   }
 
   @media (max-width: 600px){
     height: 195px;
