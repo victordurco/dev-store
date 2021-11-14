@@ -132,10 +132,10 @@ const Logo = styled.span`
 `;
 
 const MenuCategories = styled.button`
-background-color: inherit;
-    :hover{
-    background-color: #D43476;;
-  }
+  background-color: inherit;
+      :hover{
+      background-color: #D43476;;
+    }
 `;
 
 export default HeaderDesktop;

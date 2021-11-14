@@ -64,13 +64,16 @@ const FooterContainer = styled.div`
   background-color:#686868;
   display: flex;
   justify-content: space-around;
-
 `;
 
 const ColumnAboutUs = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 7px;
+
+  @media (max-width:600px){
+    text-align: center;
+  }
 `;
 
 const Column = styled.div`
@@ -78,7 +81,7 @@ const Column = styled.div`
   flex-direction: column;
   margin-top: 7px;
 
-  @media (max-width:600){
+  @media (max-width:600px){
     display: none;
   }
 `;

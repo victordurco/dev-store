@@ -21,6 +21,7 @@
     "react-horizontal-scrolling-menu": "^2.5.2",
     "react-icons": "^4.3.1",
     "react-imask": "^6.2.2",
+    "react-loader-spinner": "^4.0.0",
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
     "react-text-mask": "^5.4.3",

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import Swal from 'sweetalert2';
+import Loader from 'react-loader-spinner';
 import Header from '../shared/Header';
 import Footer from '../shared/Footer';
 import ProductCard from '../shared/ProductCard';
@@ -100,7 +101,17 @@ const HomePage = () => {
             </MenuContainer>
           </MenusContainer>
         )
-        : <div>CARREGANDO ...</div>}
+        : (
+          <MenusContainer loading="loading">
+            <Loader
+              type="Puff"
+              color="#FA4098"
+              height={200}
+              width={200}
+              timeout={3000}
+            />
+          </MenusContainer>
+        )}
       <Footer />
     </HomeContainer>
   );
@@ -112,6 +123,7 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  align-items: center;
 `;
 
 const Logo = styled.span`
@@ -125,6 +137,11 @@ const Title = styled.span`
   font-size: 40px;
   font-weight: 700;
   color:#686868;
+
+  @media (max-width: 600px){
+    width: 100%;
+    font-size: 25px;
+  }
 `;
 
 const Arrow = styled.div`
@@ -148,9 +165,15 @@ const Arrow = styled.div`
 
 const MenusContainer = styled.div`
   margin-top:120px;
-  width: 100%;
-  padding: 10px 100px;
+  width: 90%;
+  max-width: 1400px;
+  min-height: calc(100vh - 129px);
+  padding: 15px 0px;
   scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: ${(props) => (props.loading === 'loading' ? 'center' : 'initial')};;
    div::-webkit-scrollbar {
     display: none;
 }
@@ -158,5 +181,5 @@ const MenusContainer = styled.div`
 
 const MenuContainer = styled.div`
   width: 100%;
-  margin: 15px 0;
+  margin: 40px 0;
 `;

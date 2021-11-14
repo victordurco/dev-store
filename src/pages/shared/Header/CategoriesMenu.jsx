@@ -32,7 +32,7 @@ const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
 };
 
 const DropDrownMenu = styled.div`
-    height: ${(props) => (props.show ? '55vh' : '0px')};
+    height: ${(props) => (props.show ? '400px' : '0px')};
     width: 20vw;
     background-color: #fd6aafe8;
     position: absolute;
