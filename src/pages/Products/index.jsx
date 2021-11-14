@@ -4,6 +4,7 @@ import { FiMapPin } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import Container from '../shared/Container';
 import { getProductByCode } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
@@ -114,7 +115,15 @@ const Products = () => {
             </Row>
           </>
         ) : (
-          <span> Carregando... </span>
+          <LoaderContainer>
+            <Loader
+              type="Puff"
+              color="#FA4098"
+              height={200}
+              width={200}
+              timeout={3000}
+            />
+          </LoaderContainer>
         )}
 
       </ProductContainer>
@@ -281,4 +290,11 @@ const Stock = styled.span`
 margin-top: 10px;
 `;
 
+const LoaderContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export default Products;
