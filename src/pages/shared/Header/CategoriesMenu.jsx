@@ -17,7 +17,14 @@ const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
   return (
     <>
       <DropDrownMenu show={mustBeShown}>
-        {categories.map((categorie) => <Categorie show={mustBeShown}>{categorie.name}</Categorie>)}
+        {categories.map((categorie) => (
+          <Categorie
+            key={categorie.id}
+            show={mustBeShown}
+          >
+            {categorie.name}
+          </Categorie>
+        ))}
       </DropDrownMenu>
       <BackgroundCover show={mustBeShown} onClick={() => setMustBeShown(false)} />
     </>
