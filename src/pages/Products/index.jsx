@@ -37,6 +37,8 @@ const Products = () => {
       showCancelButton: true,
       confirmButtonText: 'Logar',
       denyButtonText: 'Cadastrar-se',
+      confirmButtonColor: '#41E45B',
+      denyButtonColor: '#FA4098',
       cancelButtonText: 'Cancelar',
       icon: 'warning',
     }).then((result) => {
