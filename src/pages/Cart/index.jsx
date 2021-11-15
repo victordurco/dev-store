@@ -52,11 +52,9 @@ const Cart = () => {
     if (user) {
       getCart(user.token)
         .then((response) => {
-          console.log(response.data);
           setCart({ ...response.data });
         })
-        .catch((error) => {
-          console.log(error.response);
+        .catch(() => {
         });
     }
   }, [update, user]);
@@ -79,7 +77,7 @@ const Cart = () => {
     });
   };
 
-  return (
+  return (cart.products && cart.products.length > 0) ? (
     <Container noMobileSpacing>
       <ProductsContainer>
         {cart.products && (
@@ -175,8 +173,19 @@ const Cart = () => {
       )}
 
     </Container>
+  ) : (
+    <Container>
+      <NoProductMessage>
+        Parece que você ainda não adicionou nenhum produto do carrinho
+      </NoProductMessage>
+    </Container>
   );
 };
+
+const NoProductMessage = styled.span`
+  font-size: 24px;
+  margin: auto;
+`;
 
 const DeleteButton = styled(BiTrash)`
   color: red;

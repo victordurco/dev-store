@@ -127,7 +127,7 @@ const Logo = styled.span`
   cursor: pointer;
 
   @media (max-width: 1000px) {
-    font-size: 24px;
+    font-size: 28px;
   }
 `;
 
