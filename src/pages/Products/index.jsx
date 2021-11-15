@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FiMapPin } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Loader from 'react-loader-spinner';
 import Container from '../shared/Container';
@@ -18,6 +18,8 @@ const Products = () => {
   const { productCode } = useParams();
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const next = `?next=${pathname}`;
 
   useEffect(() => {
     getProductByCode(productCode)
@@ -28,7 +30,31 @@ const Products = () => {
       });
   }, []);
 
+  const SignInPopUp = () => {
+    Swal.fire({
+      title: 'Você precisa estar logado para realizar esta ação',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Logar',
+      denyButtonText: 'Cadastrar-se',
+      cancelButtonText: 'Cancelar',
+      icon: 'warning',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        navigate(`/entrar${next}`);
+      } else if (result.isDenied) {
+        navigate(`/cadastro${next}`);
+      }
+    });
+  };
+
   const handleCartClick = () => {
+    if (!user) {
+      SignInPopUp();
+      return;
+    }
+
     setIsLoadingCart(true);
     addProductToCart(productCode, user.token)
       .then(() => {
@@ -55,6 +81,11 @@ const Products = () => {
   };
 
   const handleBuyClick = () => {
+    if (!user) {
+      SignInPopUp();
+      return;
+    }
+
     setIsLoadingBuy(true);
     addProductToCart(productCode, user.token)
       .then(() => {
