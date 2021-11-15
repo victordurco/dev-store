@@ -29,7 +29,7 @@ const HeaderDesktop = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
         </ContainerSearchBox>
 
         <Group2>
-          <CartIcon />
+          <CartIcon onClick={() => navigate('/carrinho')} />
           <UserButton />
         </Group2>
 
