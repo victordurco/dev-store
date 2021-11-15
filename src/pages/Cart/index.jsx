@@ -176,7 +176,7 @@ const Cart = () => {
   ) : (
     <Container>
       <NoProductMessage>
-        Parece que você ainda não adicionou nenhum produto do carrinho
+        Parece que você ainda não adicionou nenhum produto ao carrinho
       </NoProductMessage>
     </Container>
   );
