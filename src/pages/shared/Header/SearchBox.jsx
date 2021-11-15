@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Paper from '@mui/material/Paper';
 import Swal from 'sweetalert2';
@@ -9,6 +10,7 @@ import { getResearchedProduct } from '../../../services/devStore.services';
 import SearchOption from './SearchOption';
 
 const SearchBox = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [optionsVisibility, setOptionsVisibility] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -34,12 +36,18 @@ const SearchBox = () => {
     }
   };
 
+  const submitSearch = () => {
+    const formatedSearch = search.replace(' ', '&');
+    navigate(`/pesquisar/${formatedSearch}`);
+  };
+
   return (
     <Paper
       component="form"
       sx={{
         p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%',
       }}
+      onSubmit={submitSearch}
     >
       <Wrapper>
         <InputWrapper>
