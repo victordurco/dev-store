@@ -128,7 +128,7 @@ const Logo = styled.span`
 
   @media (max-width: 1000px) {
     font-size: 24px;
-}
+  }
 `;
 
 const MenuCategories = styled.button`

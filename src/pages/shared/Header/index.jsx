@@ -56,6 +56,7 @@ const Logo = styled.span`
   font-family: 'Quantico', sans-serif;
   color: white;
   font-size: 45px;
+  
 `;
 
 export default Header;
