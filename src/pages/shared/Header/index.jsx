@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import HeaderMobile from './HeaderMobile';
@@ -6,6 +6,7 @@ import HeaderDesktop from './HeaderDesktop';
 
 const Header = () => {
   const { pathname } = useLocation();
+  const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
 
   return (
     <Container>
@@ -15,8 +16,14 @@ const Header = () => {
         </HeaderSimple>
       ) : (
         <>
-          <HeaderDesktop />
-          <HeaderMobile />
+          <HeaderDesktop
+            showCategoriesMenu={showCategoriesMenu}
+            setShowCategoriesMenu={setShowCategoriesMenu}
+          />
+          <HeaderMobile
+            showCategoriesMenu={showCategoriesMenu}
+            setShowCategoriesMenu={setShowCategoriesMenu}
+          />
         </>
       )}
     </Container>

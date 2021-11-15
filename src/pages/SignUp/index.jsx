@@ -151,7 +151,7 @@ const SignUp = () => {
         if (next) {
           navigate(`/entrar?next=${next}`);
         } else {
-          navigate('/entrar');
+          navigate(`/entrar${search}`);
         }
       })
       .catch((error) => {

@@ -15,6 +15,7 @@ import SignIn from './pages/SignIn';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import { getUser } from './services/devStore.services';
+import Categorie from './pages/Categorie';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="/cadastro" exact element={<SignUp />} />
             <Route path="/carrinho" exact element={<Cart />} />
             <Route path="/produtos/:productCode" exact element={<Products />} />
+            <Route path="/categoria/:categorieId" exact element={<Categorie />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
