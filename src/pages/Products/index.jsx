@@ -125,26 +125,26 @@ const Products = () => {
                     </span>
                   </Group>
 
-                  {user && (
-                    <Group marginTop="23px">
-                      <span>Frete grátis em:</span>
-                      <Address>
-                        <FiMapPin />
-                        {user.address.address}
-                        {', '}
-                        {user.address.state}
-                      </Address>
-                      <Stock>
-                        Estoque:
-                        {' '}
-                        {product.quantity}
-                        {' '}
-                        unidades
-                      </Stock>
-                    </Group>
-                  )}
+                  <Group>
+                    {user && (
+                      <Group marginBottom="15px">
+                        <span>Frete grátis em:</span>
+                        <Address>
+                          <FiMapPin />
+                          {user.address.address}
+                          {', '}
+                          {user.address.state}
+                        </Address>
+                        <Stock>
+                          Estoque:
+                          {' '}
+                          {product.quantity}
+                          {' '}
+                          unidades
+                        </Stock>
+                      </Group>
+                    )}
 
-                  <Group marginTop={user ? '23px' : '120px'}>
                     <LoadingButton
                       loading={isLoadingBuy}
                       variant="contained"
@@ -255,6 +255,7 @@ const Group = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: ${({ marginTop }) => (marginTop || '0px')};
+  margin-bottom: ${({ marginBottom }) => (marginBottom || '0px')};
   width: 100%;
   @media (max-width: 700px) {
   margin-top: ${({ marginTop }) => (marginTop ? '23px' : '0px')};
