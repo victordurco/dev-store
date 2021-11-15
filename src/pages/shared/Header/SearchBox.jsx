@@ -65,17 +65,26 @@ const SearchBox = () => {
             <SearchIcon />
           </IconButton>
         </InputWrapper>
-        <Options show={search.length >= 3 && optionsVisibility}>
-          {filteredProducts.map((product) => (
-            <SearchOption
-              key={product.id}
-              name={product.name}
-              photo={product.photo}
-              code={product.code}
-              setSearch={setSearch}
-            />
-          ))}
-        </Options>
+        {filteredProducts.length > 0
+          ? (
+            <Options show={search.length >= 3 && optionsVisibility}>
+              {filteredProducts.map((product) => (
+                <SearchOption
+                  key={product.id}
+                  name={product.name}
+                  photo={product.photo}
+                  code={product.code}
+                  setSearch={setSearch}
+                />
+              ))}
+            </Options>
+          )
+          : (
+            <NoOptions show={search.length >= 3 && optionsVisibility}>
+              Nenhum resultado :(
+            </NoOptions>
+          )}
+
       </Wrapper>
     </Paper>
   );
@@ -114,4 +123,22 @@ const Options = styled.div`
   z-index: 1;
   overflow: hidden;
   overflow-y: auto;
+`;
+
+const NoOptions = styled.div`
+  width: 100%;
+  height: ${(props) => (props.show ? '100px' : '0px')};
+  transition: 450ms ease-out;
+  background-color: #fff;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 1;
+  color: ${(props) => (props.show ? '#686868' : 'transparent')};
+  border-radius: 5px;
+  border: ${(props) => (props.show ? '1px #686868 solid' : 'none')};
+  font-size: 30px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 `;
