@@ -4,8 +4,9 @@ import { FiMapPin } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import Container from '../shared/Container';
-import { getProductByCode } from '../../services/devStore.services';
+import { getProductByCode, addProductToCart } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
 /* eslint-disable react/no-array-index-key */
@@ -22,6 +23,36 @@ const Products = () => {
       .catch(() => {
       });
   }, []);
+
+  const handleCartClick = () => {
+    console.log(user);
+    addProductToCart(productCode, user.token)
+      .then((response) => {
+        console.log(response);
+        Swal.fire({
+          title: 'Produto adicionado',
+          text: 'Deseja ver seu carrinho agora?',
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonColor: '#41E45B',
+          cancelButtonColor: '#FA4098',
+          confirmButtonText: 'Ver carrinho',
+          cancelButtonText: 'Continuar comprando',
+          allowOutsideClick: 'false',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success',
+            );
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
 
   return (
     <Container noMobileSpacing>
@@ -85,6 +116,7 @@ const Products = () => {
                     style={{ marginTop: '10px' }}
                     endIcon={<FaShoppingCart />}
                     fullWidth
+                    onClick={handleCartClick}
                   >
                     <strong> Adicionar ao carrinho </strong>
                   </Button>

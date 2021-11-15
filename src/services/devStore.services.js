@@ -16,6 +16,12 @@ const getProductByCode = (code) => axios.get(`${URL_API}/products/${code}`);
 
 const getUser = (token) => axios.get(`${URL_API}/user`, getConfig(token));
 
+const addProductToCart = (code, token) => axios.post(`${URL_API}/cart`, { code }, getConfig(token));
+
+const getCart = (token) => axios.get(`${URL_API}/cart`, getConfig(token));
+
+const deleteProduct = (code, token) => axios.delete(`${URL_API}/cart/${code}`, getConfig(token));
+
 export {
-  signIn, signUp, getProductByCode, getUser,
+  signIn, signUp, getProductByCode, getUser, addProductToCart, getCart, deleteProduct,
 };

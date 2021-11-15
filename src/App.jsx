@@ -13,6 +13,7 @@ import UserContext from './contexts/UserContext';
 import Header from './pages/shared/Header';
 import SignIn from './pages/SignIn';
 import Products from './pages/Products';
+import Cart from './pages/Cart';
 import { getUser } from './services/devStore.services';
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
     if (token) {
       getUser(token)
         .then((response) => {
-          setUser({ ...response.data });
+          setUser({ ...response.data, token });
         })
         .catch(() => {
           localStorage.removeItem('token');
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="/" exact element={<HomePage />} />
             <Route path="/entrar" exact element={<SignIn />} />
             <Route path="/cadastro" exact element={<SignUp />} />
+            <Route path="/carrinho" exact element={<Cart />} />
             <Route path="/produtos/:productCode" exact element={<Products />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
