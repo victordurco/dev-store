@@ -10,16 +10,17 @@ import SearchOption from './SearchOption';
 
 const SearchBox = () => {
   const [search, setSearch] = useState('');
+  const [optionsVisibility, setOptionsVisibility] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
 
     if (event.target.value.length >= 3) {
+      setOptionsVisibility(true);
       getResearchedProduct({ name: event.target.value })
         .then((res) => {
           setFilteredProducts(res.data);
-          console.log(filteredProducts);
         })
         .catch(() => {
           Swal.fire({
@@ -28,6 +29,8 @@ const SearchBox = () => {
             text: 'Tivemos um problema com sua pesquisa :(',
           });
         });
+    } else {
+      setOptionsVisibility(false);
     }
   };
 
@@ -46,19 +49,22 @@ const SearchBox = () => {
             inputProps={{ 'aria-label': 'pesquise seu produto....' }}
             value={search}
             onChange={handleSearchChange}
+            onFocus={() => setOptionsVisibility(true)}
+            onBlur={() => setOptionsVisibility(false)}
             fullWidth
           />
           <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
             <SearchIcon />
           </IconButton>
         </InputWrapper>
-        <Options show={search.length >= 3}>
+        <Options show={search.length >= 3 && optionsVisibility}>
           {filteredProducts.map((product) => (
             <SearchOption
               key={product.id}
               name={product.name}
               photo={product.photo}
               code={product.code}
+              setSearch={setSearch}
             />
           ))}
         </Options>

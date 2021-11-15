@@ -20,7 +20,7 @@ const Products = () => {
       })
       .catch(() => {
       });
-  }, []);
+  }, [productCode]);
 
   return (
     <Container noMobileSpacing>

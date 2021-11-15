@@ -1,26 +1,28 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const SearchOption = ({ photo, name, code }) => {
-  const navigate = useNavigate();
-
+const SearchOption = ({
+  photo, name, code, setSearch,
+}) => {
   const handleClick = () => {
-    navigate(`/produtos/${code}`);
+    setSearch('');
   };
 
   return (
-    <Container onClick={handleClick}>
-      <Photo src={photo} alt="option photo" />
-      <ProductName>{name}</ProductName>
-    </Container>
+    <Link to={`/produtos/${code}`}>
+      <Container onClick={handleClick}>
+        <Photo src={photo} alt="option photo" />
+        <ProductName>{name}</ProductName>
+      </Container>
+    </Link>
   );
 };
 
 export default SearchOption;
 
-const Container = styled.div`
+const Container = styled.button`
   width: 100%;
   height: 66px;
   display: flex;
@@ -30,6 +32,7 @@ const Container = styled.div`
   margin-bottom: 2px;
   padding-left: 15px;
   border-radius: 10px;
+  background-color: #fff;
   
   :hover{
     border: 1px #FA4098 solid;
