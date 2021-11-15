@@ -14,7 +14,9 @@ const Container = styled.div`
   @media (max-width: 1000px) {
     ${({ noMobileSpacing }) => noMobileSpacing
     && `margin-top: 107px;
-        margin-bottom: 0;`}
+        margin-bottom: 0;
+        min-height: calc(100vh - 276px + 40px);
+        `}
   }
 `;
 
