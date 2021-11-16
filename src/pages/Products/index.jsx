@@ -136,7 +136,7 @@ const Products = () => {
                           {user.address.state}
                         </Address>
                         <Stock>
-                          {product.quantity > 239 ? (
+                          {product.quantity > 0 ? (
                             <span>
                               Estoque:
                               {' '}

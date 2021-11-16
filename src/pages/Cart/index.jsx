@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { FiMapPin } from 'react-icons/fi';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiTrash } from 'react-icons/bi';
 import Container from '../shared/Container';
-import { getCart, deleteProduct } from '../../services/devStore.services';
+import { getCart, deleteProduct, finishCart } from '../../services/devStore.services';
 import UserContext from '../../contexts/UserContext';
 
 const Cart = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   const [update, setUpdate] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,6 +74,25 @@ const Cart = () => {
     }).then((response) => {
       if (response.isConfirmed) {
         setIsLoading(true);
+        finishCart(user.token)
+          .then(() => {
+            setIsLoading(false);
+            Swal.fire(
+              'Sucesso',
+              'Compra realizada com sucesso!',
+              'success',
+            ).then(() => {
+              navigate('/');
+            });
+          })
+          .catch(() => {
+            setIsLoading(false);
+            Swal.fire(
+              'Erro',
+              'Falha ao finalizar a compra',
+              'error',
+            );
+          });
       }
     });
   };
