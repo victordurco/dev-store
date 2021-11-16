@@ -2,11 +2,12 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../../contexts/UserContext';
 import standardProfilePicture from '../../../assets/imgs/profile-standard.jpg';
 
 const UserButton = () => {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const { pathname } = useLocation();
   const [imageError, setImageError] = useState(false);
@@ -36,6 +37,7 @@ const UserButton = () => {
       if (result.isConfirmed) {
         setUser(null);
         localStorage.removeItem('token');
+        navigate('/');
       }
     });
   };
