@@ -52,4 +52,5 @@ const ProductName = styled.span`
   font-size: 20px;
   font-weight: 700;
   margin-left: 20px;
+  color: #686868;
 `;

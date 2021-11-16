@@ -58,7 +58,7 @@ const SearchBox = () => {
             value={search}
             onChange={handleSearchChange}
             onFocus={() => setOptionsVisibility(true)}
-            onBlur={() => setOptionsVisibility(false)}
+            onBlur={() => setTimeout(() => setOptionsVisibility(false), 100)}
             fullWidth
           />
           <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
