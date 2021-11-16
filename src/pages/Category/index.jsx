@@ -3,23 +3,23 @@ import styled from 'styled-components';
 import Loader from 'react-loader-spinner';
 import { useParams, useNavigate } from 'react-router-dom';
 import Container from '../shared/Container';
-import { getCategorieProducts } from '../../services/devStore.services';
+import { getCategoryProducts } from '../../services/devStore.services';
 import ProductCard from '../shared/ProductCard';
 
-const Categorie = () => {
-  const { categorieId } = useParams();
+const Category = () => {
+  const { categoryId } = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getCategorieProducts(categorieId)
+    getCategoryProducts(categoryId)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
       })
       .catch(() => navigate('/*'));
-  }, [categorieId]);
+  }, [categoryId]);
 
   return (
     <Container>
@@ -52,7 +52,7 @@ const Categorie = () => {
   );
 };
 
-export default Categorie;
+export default Category;
 
 const ProductsContainer = styled.div`
   width: 100%;

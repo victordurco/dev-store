@@ -8,7 +8,7 @@ const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
-  const handleClickOnCategorie = (id) => {
+  const handleClickOnCategory = (id) => {
     setMustBeShown(false);
     navigate(`/categoria/${id}`, { replace: true });
   };
@@ -24,14 +24,14 @@ const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
   return (
     <>
       <DropDrownMenu show={mustBeShown}>
-        {categories.map((categorie) => (
-          <Categorie
-            key={categorie.id}
+        {categories.map((category) => (
+          <Category
+            key={category.id}
             show={mustBeShown}
-            onClick={() => handleClickOnCategorie(categorie.id)}
+            onClick={() => handleClickOnCategory(category.id)}
           >
-            {categorie.name}
-          </Categorie>
+            {category.name}
+          </Category>
         ))}
       </DropDrownMenu>
       <BackgroundCover show={mustBeShown} onClick={() => setMustBeShown(false)} />
@@ -73,7 +73,7 @@ const BackgroundCover = styled.div`
   transition: visibility 0.1s, opacity 0.5s linear;
 `;
 
-const Categorie = styled.span`
+const Category = styled.span`
   font-size: 30px;
   font-weight: 700;
   font-family: 'Quantico', sans-serif;
