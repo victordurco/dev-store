@@ -136,16 +136,24 @@ const Products = () => {
                           {user.address.state}
                         </Address>
                         <Stock>
-                          Estoque:
-                          {' '}
-                          {product.quantity}
-                          {' '}
+                          {product.quantity > 0 ? (
+                            <span>
+                              Estoque:
+                              {' '}
+                              {product.quantity}
+                              {' '}
+                            </span>
+                          ) : (
+                            <span> Fora de estoque </span>
+                          )}
+
                           unidades
                         </Stock>
                       </Group>
                     )}
 
                     <LoadingButton
+                      disabled={product.quantity < 0}
                       loading={isLoadingBuy}
                       variant="contained"
                       color="secondary"
@@ -153,10 +161,13 @@ const Products = () => {
                       onClick={handleBuyClick}
                       fullWidth
                     >
-                      <strong> Comprar </strong>
+                      <strong>
+                        {product.quantity > 0 ? 'Comprar' : 'Produto Indisponível'}
+                      </strong>
                     </LoadingButton>
 
                     <LoadingButton
+                      disabled={product.quantity < 0}
                       loading={isLoadingCart}
                       color="primary"
                       margin="normal"
