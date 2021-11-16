@@ -30,9 +30,10 @@ const UserButton = () => {
       title: 'Deseja sair dessa conta?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#FA4098',
+      cancelButtonColor: '#686868',
       confirmButtonText: 'Sim, desejo sair',
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         setUser(null);
