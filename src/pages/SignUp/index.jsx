@@ -143,7 +143,7 @@ const SignUp = () => {
           text: 'Cadastro realizado!',
           icon: 'success',
           confirmButtonColor: '#FA4098',
-          confirmButtonText: 'Logar',
+          confirmButtonText: 'Entrar',
         }).then(() => {
           if (next) {
             navigate(`/entrar?next=${next}`);
