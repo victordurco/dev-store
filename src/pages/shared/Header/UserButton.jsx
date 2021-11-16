@@ -1,12 +1,14 @@
 import { FaRegUserCircle } from 'react-icons/fa';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../../contexts/UserContext';
 import standardProfilePicture from '../../../assets/imgs/profile-standard.jpg';
 
 const UserButton = () => {
-  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const { pathname } = useLocation();
   const [imageError, setImageError] = useState(false);
   const next = (pathname !== '/') ? `?next=${pathname}` : '';
@@ -23,9 +25,27 @@ const UserButton = () => {
   const photo = (user && user.photo && !imageError)
     ? user.photo : standardProfilePicture;
 
+  const handlePerfilClick = () => {
+    Swal.fire({
+      title: 'Deseja sair dessa conta?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#FA4098',
+      cancelButtonColor: '#686868',
+      confirmButtonText: 'Sim, desejo sair',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUser(null);
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    });
+  };
+
   return (
     (user ? (
-      <UserContainer>
+      <UserContainer onClick={handlePerfilClick}>
         <UserPhoto src={photo} onError={() => setImageError(true)} />
         <NameText>
           {name}
