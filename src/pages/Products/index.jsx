@@ -28,7 +28,7 @@ const Products = () => {
       })
       .catch(() => {
       });
-  }, []);
+  }, [productCode]);
 
   const SignInPopUp = () => {
     Swal.fire({

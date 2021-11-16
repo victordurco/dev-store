@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import HeaderMobile from './HeaderMobile';
 import HeaderDesktop from './HeaderDesktop';
 
 const Header = () => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
 
@@ -12,7 +13,7 @@ const Header = () => {
     <Container>
       {(pathname === '/entrar' || pathname === '/cadastro') ? (
         <HeaderSimple>
-          <Logo> dev_store </Logo>
+          <Logo onClick={() => navigate('/')}> dev_store </Logo>
         </HeaderSimple>
       ) : (
         <>
@@ -56,7 +57,7 @@ const Logo = styled.span`
   font-family: 'Quantico', sans-serif;
   color: white;
   font-size: 45px;
-  
+  cursor: pointer;
 `;
 
 export default Header;

@@ -30,6 +30,8 @@ const getCategories = () => axios.get(`${URL_API}/categories`);
 
 const getCategorieProducts = (id) => axios.get(`${URL_API}/categorie/${id}`);
 
+const getResearchedProduct = (body) => axios.post(`${URL_API}/search`, body);
+
 export {
   signIn,
   signUp,
@@ -39,6 +41,7 @@ export {
   getProductsOnSale,
   getCategories,
   getCategorieProducts,
+  getResearchedProduct,
   addProductToCart,
   getCart,
   deleteProduct,

@@ -124,7 +124,7 @@ const Cart = () => {
       {user && (
         <OrderInfo>
           <Group>
-            <Bold size="28px" color="black"> Dados da compra: </Bold>
+            <Bold size="28px" color="#686868"> Dados da compra: </Bold>
             <TextRow>
               Nome do comprador:
               {' '}
@@ -268,6 +268,7 @@ const Bold = styled.span`
       font-size: ${({ size }) => (size || '16px')};
       font-weight: bold;
       color: ${({ color }) => (color || '#FA4098')};
+      margin-bottom: 10px;
       `;
 
 const ContainerImage = styled.div`
@@ -300,16 +301,15 @@ const Group = styled.div`
       display: flex;
       flex-direction: column;
       margin-top: 20px;
-      color: black;
+      color:#686868;
       width: 100%;
-
       `;
 
 const Address = styled.span`
       color: #FA4098;
       text-decoration: underline;
-      margin-top: 5px;
-      margin-bottom: 5px;
+      margin-top: 15px;
+      margin-bottom: 15px;
 
       & {
         svg {

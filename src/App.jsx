@@ -16,6 +16,7 @@ import Products from './pages/Products';
 import Cart from './pages/Cart';
 import { getUser } from './services/devStore.services';
 import Categorie from './pages/Categorie';
+import ResearchedProducts from './pages/ResearchedProducts';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -58,6 +59,7 @@ export default function App() {
             <Route path="/carrinho" exact element={<Cart />} />
             <Route path="/produtos/:productCode" exact element={<Products />} />
             <Route path="/categoria/:categorieId" exact element={<Categorie />} />
+            <Route path="/pesquisar/:name" exact element={<ResearchedProducts />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ThemeProvider>
