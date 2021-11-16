@@ -40,7 +40,7 @@ const CategoriesMenu = ({ mustBeShown, setMustBeShown }) => {
 };
 
 const DropDrownMenu = styled.div`
-    height: ${(props) => (props.show ? '400px' : '0px')};
+    height: ${(props) => (props.show ? '500px' : '0px')};
     width: 350px;
     background-color: #fd6aafe8;
     position: absolute;
@@ -49,7 +49,7 @@ const DropDrownMenu = styled.div`
     z-index: 2;
     border-radius: 10px;
     border-top-left-radius: 0px;
-    transition: 450ms ease-out;
+    transition: height 450ms ease-out;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,8 +66,8 @@ const BackgroundCover = styled.div`
   left: 0;
   visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
   opacity: ${(props) => (props.show ? 1 : 0)};
-  width: 98.8vw;
-  height: 100vh;
+  width: 100vw;
+  height: ${(props) => (props.show ? 'calc(100vh - 109px)' : '0')};
   background-color: #a5a5a588;
   z-index: 1;
   transition: visibility 0.1s, opacity 0.5s linear;

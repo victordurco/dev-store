@@ -16,6 +16,12 @@ const getProductByCode = (code) => axios.get(`${URL_API}/products/${code}`);
 
 const getUser = (token) => axios.get(`${URL_API}/user`, getConfig(token));
 
+const addProductToCart = (code, token) => axios.post(`${URL_API}/cart`, { code }, getConfig(token));
+
+const getCart = (token) => axios.get(`${URL_API}/cart`, getConfig(token));
+
+const deleteProduct = (code, token) => axios.delete(`${URL_API}/cart/${code}`, getConfig(token));
+
 const getProductsHighlights = () => axios.get(`${URL_API}/highlights`);
 
 const getProductsOnSale = () => axios.get(`${URL_API}/on-sale`);
@@ -36,4 +42,7 @@ export {
   getCategories,
   getCategorieProducts,
   getResearchedProduct,
+  addProductToCart,
+  getCart,
+  deleteProduct,
 };

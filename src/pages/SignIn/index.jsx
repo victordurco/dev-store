@@ -52,7 +52,6 @@ const SignIn = () => {
     signIn(formData)
       .then((response) => {
         localStorage.setItem('token', JSON.stringify(response.data.token));
-
         setUser({ ...response.data });
 
         if (next) {
