@@ -18,6 +18,8 @@ const getUser = (token) => axios.get(`${URL_API}/user`, getConfig(token));
 
 const addProductToCart = (code, token) => axios.post(`${URL_API}/cart`, { code }, getConfig(token));
 
+const finishCart = (token) => axios.post(`${URL_API}/finish-cart`, null, getConfig(token));
+
 const getCart = (token) => axios.get(`${URL_API}/cart`, getConfig(token));
 
 const deleteProduct = (code, token) => axios.delete(`${URL_API}/cart/${code}`, getConfig(token));
@@ -45,4 +47,5 @@ export {
   addProductToCart,
   getCart,
   deleteProduct,
+  finishCart,
 };
