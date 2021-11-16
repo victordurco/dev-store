@@ -15,7 +15,7 @@ import SignIn from './pages/SignIn';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import { getUser } from './services/devStore.services';
-import Categorie from './pages/Categorie';
+import Category from './pages/Category';
 import ResearchedProducts from './pages/ResearchedProducts';
 
 export default function App() {
@@ -58,7 +58,7 @@ export default function App() {
             <Route path="/cadastro" exact element={<SignUp />} />
             <Route path="/carrinho" exact element={<Cart />} />
             <Route path="/produtos/:productCode" exact element={<Products />} />
-            <Route path="/categoria/:categorieId" exact element={<Categorie />} />
+            <Route path="/categoria/:categoryId" exact element={<Category />} />
             <Route path="/pesquisar/:name" exact element={<ResearchedProducts />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

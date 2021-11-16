@@ -30,7 +30,7 @@ const getProductsOnSale = () => axios.get(`${URL_API}/on-sale`);
 
 const getCategories = () => axios.get(`${URL_API}/categories`);
 
-const getCategorieProducts = (id) => axios.get(`${URL_API}/categorie/${id}`);
+const getCategoryProducts = (id) => axios.get(`${URL_API}/category/${id}`);
 
 const getResearchedProduct = (body) => axios.post(`${URL_API}/search`, body);
 
@@ -42,7 +42,7 @@ export {
   getProductsHighlights,
   getProductsOnSale,
   getCategories,
-  getCategorieProducts,
+  getCategoryProducts,
   getResearchedProduct,
   addProductToCart,
   getCart,
