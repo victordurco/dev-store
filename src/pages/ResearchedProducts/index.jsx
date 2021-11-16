@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Loader from 'react-loader-spinner';
@@ -25,7 +26,7 @@ const ResearchedProducts = () => {
   return (
     <Container>
       {loading
-        ? (
+        && (
           <Loader
             type="Puff"
             color="#FA4098"
@@ -33,20 +34,25 @@ const ResearchedProducts = () => {
             width={200}
             timeout={3000}
           />
-        )
+        )}
+      {products.length > 0 ? (
+        <ProductsContainer>
+          {products.map((product) => (
+            <ProductCard
+              itemId={product.id}
+              key={product.id}
+              title={product.name}
+              image={product.photo}
+              price={product.price}
+              code={product.code}
+            />
+          ))}
+        </ProductsContainer>
+      )
         : (
-          <ProductsContainer>
-            {products.map((product) => (
-              <ProductCard
-                itemId={product.id}
-                key={product.id}
-                title={product.name}
-                image={product.photo}
-                price={product.price}
-                code={product.code}
-              />
-            ))}
-          </ProductsContainer>
+          <NoProductMessage>
+            Nenhum item encontrado :(
+          </NoProductMessage>
         )}
 
     </Container>
@@ -63,4 +69,9 @@ const ProductsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+`;
+
+const NoProductMessage = styled.span`
+  font-size: 24px;
+  margin: auto;
 `;
