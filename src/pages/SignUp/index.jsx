@@ -148,6 +148,12 @@ const SignUp = () => {
     signUp(formData)
       .then(() => {
         setIsLoading(false);
+        Swal.fire({
+          icon: 'success',
+          title: 'Cadastro realizado com sucesso',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         if (next) {
           navigate(`/entrar?next=${next}`);
         } else {
@@ -440,6 +446,7 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   padding-top: 15px;
+   margin-bottom: 60px;
 
   @media (max-width: 450px) {
     width: 90vw;
@@ -451,7 +458,7 @@ const SignUpButton = styled(LoadingButton)`
   font-weight: 700;
 `;
 
-const AlreadyHaveAccount = styled.button`
+const AlreadyHaveAccount = styled.div`
   font-size: 18px;
   color: #686868;
   font-family: 'Roboto', sans-serif;
