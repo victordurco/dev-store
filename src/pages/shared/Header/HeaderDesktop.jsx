@@ -29,7 +29,7 @@ const HeaderDesktop = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
         </ContainerSearchBox>
 
         <Group2>
-          <CartIcon />
+          <CartIcon onClick={() => navigate('/carrinho')} />
           <UserButton />
         </Group2>
 
@@ -127,8 +127,8 @@ const Logo = styled.span`
   cursor: pointer;
 
   @media (max-width: 1000px) {
-    font-size: 24px;
-}
+    font-size: 28px;
+  }
 `;
 
 const MenuCategories = styled.button`

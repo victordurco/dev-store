@@ -28,7 +28,7 @@ const Header = ({ showCategoriesMenu, setShowCategoriesMenu }) => {
           </Group1>
           <Group2>
             <UserButton />
-            <CartIcon />
+            <CartIcon onClick={() => navigate('/carrinho')} />
           </Group2>
         </Row>
 
