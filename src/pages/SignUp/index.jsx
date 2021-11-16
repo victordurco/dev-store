@@ -139,16 +139,18 @@ const SignUp = () => {
       .then(() => {
         setIsLoading(false);
         Swal.fire({
+          title: 'Sucesso',
+          text: 'Cadastro realizado!',
           icon: 'success',
-          title: 'Cadastro realizado com sucesso',
-          showConfirmButton: false,
-          timer: 1500,
+          confirmButtonColor: '#FA4098',
+          confirmButtonText: 'Entrar',
+        }).then(() => {
+          if (next) {
+            navigate(`/entrar?next=${next}`);
+          } else {
+            navigate(`/entrar${search}`);
+          }
         });
-        if (next) {
-          navigate(`/entrar?next=${next}`);
-        } else {
-          navigate(`/entrar${search}`);
-        }
       })
       .catch((error) => {
         setIsLoading(false);
